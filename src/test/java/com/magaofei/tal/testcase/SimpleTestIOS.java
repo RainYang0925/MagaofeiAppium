@@ -1,4 +1,4 @@
-package com.magaofei.tal;
+package com.magaofei.tal.testcase;
 
 import io.appium.java_client.ios.IOSDriver;
 import org.hamcrest.core.IsEqual;

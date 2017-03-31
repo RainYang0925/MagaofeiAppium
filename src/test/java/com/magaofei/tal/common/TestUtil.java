@@ -12,19 +12,19 @@ import static org.junit.Assert.assertEquals;
 public class TestUtil {
 
 
-    public static boolean inputFieldAssert(String name, int type, WebDriver driver) throws Exception {
+    public static WebElement inputFieldAssert(String name, int type, WebDriver driver) throws Exception {
         WebElement d = driver.findElement(By.id(name));
         WebElement dClassName = driver.findElement(By.className(name));
         WebElement dXpathName = driver.findElement(By.xpath(name));
 
-
+        d.click();
         d.clear();
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         d.sendKeys("123");
 
@@ -36,7 +36,7 @@ public class TestUtil {
 
         assertEquals(d, "123");
 
-        return true;
+        return d;
     }
 
 
