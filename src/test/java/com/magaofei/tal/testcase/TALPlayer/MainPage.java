@@ -68,7 +68,7 @@ public class MainPage {
         * 点击内容：
         * 输入网址，play、Mute、Stop、返回桌面重新调起
         *
-        * 
+        *
 
 
         WebElement urlLabel = driver.findElement(By.className("UIATextField"));
@@ -116,7 +116,7 @@ public class MainPage {
         MainPage.assertUrlField();
         MainPage.clickPlayBtn();
 
-        Handle.sleep(2000);
+
 
         MainPage.clickStopBtn();
     }
@@ -128,38 +128,42 @@ public class MainPage {
         MainPage.assertUrlField();
 
         MainPage.clickPlayBtn();
-        Handle.sleep(2000);
+
 
         MainPage.clickMuteBtn();
-        Handle.sleep(2000);
+
 
         MainPage.clickStopBtn();
-        Handle.sleep(2000);
+
 
         MainPage.clickPlayBtn();
-        Handle.sleep(2000);
+
 
         MainPage.clickMuteBtn();
-        Handle.sleep(5000);
+
 
     }
 
     @Test
     public void testBackground () {
+        MainPage.assertUrlField();
+        MainPage.clickPlayBtn();
+        Handle.sleep(3000);
 
         for (int i = 0; i < 10; i++) {
             // 返回桌面100秒后重新调起
-            driver.runAppInBackground(100);
-            System.out.println("第"+i+"次返回桌面测试");
+            driver.runAppInBackground(6);
+            System.out.println("第" + (i+1) + "次返回桌面测试");
+            Handle.sleep(5000);
         }
 
     }
 
-    /*测试点击Play和Stop按钮，循环1000次*/
+    /*测试点击Play和Stop按钮，循环100次*/
     @Test
     public void testPlayStopBtnLoop() {
         MainPage.assertUrlField();
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10; i++) {
             MainPage.clickPlayBtn();
 
             Handle.sleep(3000);
@@ -175,18 +179,21 @@ public class MainPage {
     public static void clickPlayBtn() {
         WebElement playBtn = driver.findElement(By.name("Play"));
         Handle.click(playBtn);
+        Handle.sleep(3000);
     }
 
     /*点击Stop按钮*/
     public static void clickStopBtn() {
         WebElement stopBtn = driver.findElement(By.name("Stop"));
         Handle.click(stopBtn);
+        Handle.sleep(3000);
     }
 
     /*点击Mute按钮*/
     public static void clickMuteBtn() {
         WebElement muteBtn = driver.findElement(By.name("Mute"));
         Handle.click(muteBtn);
+        Handle.sleep(3000);
     }
 
     public static void assertUrlField () {
@@ -198,11 +205,13 @@ public class MainPage {
             // 问题 在使用clear之前，必须为官方输入法 ，且需要点击click调出键盘
             urlField.clear();
             urlField.sendKeys(playUrl);
+            Handle.sleep(1000);
         }
 
-        Handle.sleep(1000);
+
 
         Assert.assertEquals(urlField.getText(), playUrl);
+        Handle.sleep(2000);
 
 //        try {
 //            Assert.assertEquals(urlField.getText(), playUrl);
