@@ -15,21 +15,21 @@ public class MainPage {
     public static void clickPlayBtn(AppiumDriver<WebElement> driver) {
         WebElement playBtn = driver.findElement(By.name("Play"));
         Handle.click(playBtn);
-        Handle.sleep(3000);
+        Handle.customSleep(3000);
     }
 
     /*点击Stop按钮*/
     public static void clickStopBtn(AppiumDriver<WebElement> driver) {
         WebElement stopBtn = driver.findElement(By.name("Stop"));
         Handle.click(stopBtn);
-        Handle.sleep(3000);
+        Handle.customSleep(3000);
     }
 
     /*点击Mute按钮*/
     public static void clickMuteBtn(AppiumDriver<WebElement> driver) {
         WebElement muteBtn = driver.findElement(By.name("Mute"));
         Handle.click(muteBtn);
-        Handle.sleep(3000);
+        Handle.customSleep(3000);
     }
 
     public static void assertUrlField(AppiumDriver<WebElement> driver, String playUrl) {
@@ -41,12 +41,12 @@ public class MainPage {
             // 问题 在使用clear之前，必须为官方输入法 ，且需要点击click调出键盘
             urlField.clear();
             urlField.sendKeys(playUrl);
-            Handle.sleep(1000);
+            Handle.defaultSleep();
         }
 
 
         Assert.assertEquals(urlField.getText(), playUrl);
-        Handle.sleep(2000);
+        Handle.customSleep(2000);
 
 //        try {
 //            Assert.assertEquals(urlField.getText(), playUrl);

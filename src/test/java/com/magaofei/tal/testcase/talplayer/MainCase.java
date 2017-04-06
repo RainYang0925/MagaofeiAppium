@@ -112,13 +112,13 @@ public class MainCase {
 
         MainPage.clickPlayBtn(driver);
 
-        Handle.sleep(3000);
+        Handle.customSleep(3000);
 
         for (int i = 0; i < 10; i++) {
             // 返回桌面100秒后重新调起
             driver.runAppInBackground(6);
             System.out.println("第" + (i+1) + "次返回桌面测试");
-            Handle.sleep(5000);
+            Handle.customSleep(5000);
         }
 
     }
@@ -130,7 +130,7 @@ public class MainCase {
         for (int i = 0; i < 10; i++) {
             MainPage.clickPlayBtn(driver);
 
-            Handle.sleep(3000);
+            Handle.customSleep(3000);
             MainPage.clickStopBtn(driver);
 
             System.out.println(i+1);

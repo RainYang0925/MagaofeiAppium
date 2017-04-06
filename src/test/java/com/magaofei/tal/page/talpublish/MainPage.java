@@ -9,14 +9,89 @@ import org.openqa.selenium.By;
 
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
 import java.util.Random;
 
 /**
  * Created by MAMIAN on 2017/4/5.
+ * 存储页面上的所有可点击元素的操作
  */
 public class MainPage {
 
+
+
     private static String rtmpUrl = "rtmp://10.2.250.92/live_haibian/";
+
+    /*校验所有按钮的初始值*/
+    public static void assertDefaultValue (AppiumDriver<WebElement> driver) {
+        /*切换到最顶部*/
+        changeTopDefinition(driver);
+        /*保证是前置*/
+
+        WebElement f = frontTab(driver);
+//        System.out.println(f.getAttribute("value"));
+//
+        if (!f.getAttribute("value").equals("false")) {
+            f.click();
+        }
+
+        /*判断Switch的值是不是false*/
+        WebElement b = beautSwitch(driver);
+//        System.out.println(b.getAttribute("value"));
+
+        if (!b.getAttribute("value").equals("false")) {
+            b.click();
+        }
+
+    }
+
+    /*find*/
+    private static WebElement frontTab (AppiumDriver<WebElement> driver) {
+        return driver.findElement(By.name("Front"));
+    }
+
+
+    private static WebElement backTab (AppiumDriver<WebElement> driver) {
+        return driver.findElement(By.name("Back"));
+    }
+
+    private static WebElement beautSwitch (AppiumDriver<WebElement> driver) {
+        List<WebElement> l = driver.findElements(By.className("Switch"));
+        return l.get(0);
+    }
+
+    private static WebElement fpsTextField (AppiumDriver driver) {
+        List<WebElement> l = driver.findElements(By.className("TextField"));
+        return l.get(0);
+    }
+
+    private static WebElement gopTextField (AppiumDriver driver) {
+        List<WebElement> l = driver.findElements(By.className("TextField"));
+        return l.get(1);
+    }
+
+    private static WebElement rateTextField (AppiumDriver driver) {
+        List<WebElement> l = driver.findElements(By.className("TextField"));
+        return l.get(2);
+    }
+
+    private static WebElement rtmpTextField (AppiumDriver driver) {
+        List<WebElement> l = driver.findElements(By.className("TextField"));
+        return l.get(4);
+    }
+
+    private static WebElement otherView (AppiumDriver driver) {
+        return driver.findElement(By.className("Other"));
+    }
+
+    private static WebElement pickerWheel (AppiumDriver driver) {
+        return driver.findElement(By.className("PickerWheel"));
+    }
+
+    private static WebElement addBtn (AppiumDriver<WebElement> driver) {
+        return driver.findElement(By.name("Add"));
+    }
+
 
     public static void toSettingsController (AppiumDriver<WebElement> driver) {
         /*
@@ -28,43 +103,211 @@ public class MainPage {
 //        WebElement StartPush = driver.findElement(By.name("StartPush"));
 //        WebElement StartRecord = driver.findElement(By.name("StartRecord"));
 //
-//        WebElement window = driver.findElement(By.className("Window"));
-//        WebElement bottomView = driver.findElement(By.xpath("//UIApplication[1]//UIWindow[1]//UIOther[2]"));
-        WebElement bottomView = driver.findElement(By.className("Other"));
-
-
-
-//        // 获取StartPreview的位置 + 宽度，往右偏移20px
-//        int settingX = startPreview.getRect().getX() + startPreview.getRect().getWidth() + 20;
-//        int centerX = window.getSize().getWidth() / 2;
-//        int settingY = window.getSize().getHeight() - 20;
-//
-//        System.out.println("centerX=" + centerX);
-//        System.out.println("startPreviewY=" + startPreview.getRect().getY());
-//        System.out.println("muteSpeaker=" + MuteSpeaker.getRect().getY());
-//        System.out.println("StartPush=" + StartPush.getRect().getY());
-//        System.out.println("StartRecord=" + StartRecord.getRect().getY());
-
-        // 实现双击功能
-
-
-
-//        System.out.println(centerX);
-//        System.out.println(settingY);
+        WebElement bottomView = otherView(driver);
 
         IOSTouchAction doubleClickIOS = new IOSTouchAction(driver);
-//        doubleClickIOS.doubleTap(window, centerX, settingY);
-//        doubleClickIOS.doubleTap(window);
         doubleClickIOS.doubleTap(bottomView, 1, 1);
         /*
         必须要加perform才生效
         * */
         doubleClickIOS.perform();
 
+        Handle.controllerSceneSleep();
+
 
     }
+
+
+
+    public static void assertFpsTextField (AppiumDriver<WebElement> driver) {
+//        WebElement t = driver.findElement(By.xpath("//Application[1]//Window[1]//Other[1]//Other[1]//TextField[1]"));
+
+        WebElement t = fpsTextField(driver);
+
+        Random r = new Random();
+        int n = r.nextInt(30)+ 1;
+
+        Handle.assertTestFieldSendKeys(t, String.valueOf(n));
+
+    }
+
+    public static void assertGopTextField (AppiumDriver<WebElement> driver) {
+        /*List的下标从0开始*/
+
+        WebElement t = gopTextField(driver);
+
+        Random r = new Random();
+        int n = r.nextInt(7)+ 1;
+//
+
+        Handle.assertTestFieldSendKeys(t, String.valueOf(n));
+    }
+
+    public static void assertRateTextField (AppiumDriver<WebElement> driver) {
+
+        WebElement t = rateTextField(driver);
+
+        Random r = new Random();
+        int n = r.nextInt(488)+ 512;
+
+        Handle.assertTestFieldSendKeys(t ,String.valueOf(n) + "000");
+    }
+
+    public static void assertRtmpTextField (AppiumDriver<WebElement> driver) {
+
+        WebElement t = rtmpTextField(driver);
+
+        Random r = new Random();
+        int n = r.nextInt(100)+ 1;
+
+        String rtmpUrlString = rtmpUrl + String.valueOf(n);
+
+
+        Handle.assertTestFieldSendKeys(t, rtmpUrlString);
+
+        WebElement rtmpLabel = driver.findElement(By.name(rtmpUrlString));
+        rtmpLabel.isDisplayed();
+
+    }
+
+
+
+
+    /*切换到最顶部*/
+    public static void changeTopDefinition (AppiumDriver<WebElement> driver) {
+        MainPage.toSettingsController(driver);
+        WebElement pickerWheel = pickerWheel(driver);
+        int settingX = pickerWheel.getRect().getWidth() / 2;
+        int settingY = pickerWheel.getSize().getHeight() / 2;
+//        TouchAction swipe = new TouchAction(driver);
+
+
+        /*先Tap 再 移动*/
+//        swipe.tap(pickerWheel, settingX, settingY);
+
+        int windowY = driver.manage().window().getSize().getHeight();
+
+        Handle.swipe(driver, pickerWheel, settingX, settingY, 0, windowY);
+//        swipe.moveTo(pickerWheel, settingX, windowY);
+//        swipe.perform();
+
+    }
+
+    /*切换分辨率*/
+    public static void changeDefinition (AppiumDriver<WebElement> driver, boolean up) {
+        /*
+        切换清晰度, 默认480P
+        */
+
+        /*先跳转界面*/
+        MainPage.toSettingsController(driver);
+        WebElement p = pickerWheel(driver);
+
+        /*思路：获取到picker的中心位置，在其Y轴上偏移上下20点，进行Tap*/
+        int settingX = p.getRect().getWidth() / 2;
+        int settingY = p.getSize().getHeight() / 2;
+
+        /*
+        * 如果是往上走，就y-20
+        * 如果是往下走，就y+20
+        *
+        * */
+        if (up) {
+            settingY -= 20;
+        } else {
+            settingY += 20;
+        }
+
+        TouchAction pickerWheelChangeValue = new TouchAction(driver);
+        pickerWheelChangeValue.tap(p, settingX, settingY);
+        pickerWheelChangeValue.perform();
+
+        Handle.defaultSleep();
+    }
+
+    public static void startPushLoop (AppiumDriver<WebElement> driver) {
+        /*点击应用按钮*/
+        MainPage.clickApplyBtn(driver);
+
+        /*开始*/
+
+                /*验证正常开始推*/
+        MainPage.clickStartPreviewBtn(driver);
+//        Handle.sleep(500);
+//        driver.findElement(By.name("[Status] PreviewStarted"));
+         /*验证正常Push*/
+        MainPage.clickStartPushBtn(driver);
+//        Handle.sleep(500);
+//        driver.findElement(By.name("[Status] PublishStarted"));
+
+        /*播放10秒*/
+        Handle.customSleep(10000);
+
+        /*验证关闭Preview*/
+        MainPage.clickStopPreviewBtn(driver);
+//        Handle.sleep(500);
+//        driver.findElement(By.name("[Status] PreviewStopped"));
+
+        /*验证关闭Push*/
+
+        MainPage.clickStopPushBtn(driver);
+//        driver.findElement(By.name("[Status] PublishStopped"));
+//        Handle.sleep(500);
+
+
+        Handle.defaultSleep();
+
+
+
+
+
+        /*关闭*/
+    }
+
+
+
+    /*操作*/
+    public static void clickBackTab (AppiumDriver<WebElement> driver) {
+        backTab(driver).click();
+
+    }
+
+    public static void clickFrontTab (AppiumDriver<WebElement> driver) {
+        frontTab(driver).click();
+    }
+
+
+    public static void clickBeautySwitch (AppiumDriver<WebElement> driver, boolean targetValue) {
+        WebElement f = beautSwitch(driver);
+
+        Handle.clickSwitch(f, targetValue);
+
+
+    }
+
+    public static void clickAddBtn (AppiumDriver<WebElement> driver) {
+        /*点击add 按钮*/
+//        addBtn(driver).click();
+        Handle.click(addBtn(driver));
+    }
+
+    /*todo 优化代码*/
+
+    public static void clickCancelBtn (AppiumDriver<WebElement> driver) {
+        WebElement d = driver.findElement(By.name("Cancel"));
+        d.click();
+    }
+
+
+    public static void clickApplyBtn (AppiumDriver<WebElement> driver) {
+        WebElement d = driver.findElement(By.name("Apply"));
+        d.click();
+
+        Handle.controllerSceneSleep();
+    }
+
     public static void clickStartPreviewBtn (AppiumDriver<WebElement> driver) {
-        WebElement d = driver.findElement(By.name("StartPush"));
+        WebElement d = driver.findElement(By.name("StartPreview"));
         d.click();
     }
     public static void clickStartPushBtn (AppiumDriver<WebElement> driver) {
@@ -73,7 +316,7 @@ public class MainPage {
     }
 
     public static void clickStopPreviewBtn (AppiumDriver<WebElement> driver) {
-        WebElement d = driver.findElement(By.name("StopPush"));
+        WebElement d = driver.findElement(By.name("StopPreview"));
         d.click();
     }
     public static void clickStopPushBtn (AppiumDriver<WebElement> driver) {
@@ -90,125 +333,13 @@ public class MainPage {
         d.click();
     }
 
-    public static void assertFpsTextField (AppiumDriver<WebElement> driver) {
-        WebElement t = driver.findElement(By.xpath("//Application[1]//Window[1]//Other[1]//Other[1]//TextField[1]"));
-        t.click();
-        t.clear();
-
-        Random r = new Random();
-        int n = r.nextInt(30)+ 1;
-
-        Handle.assertTestFieldSendKeys(t, String.valueOf(n));
-
-        t.sendKeys(String.valueOf(n));
-
-        Handle.sleep(1000);
-
-        Assert.assertEquals(t.getText(), String.valueOf(n));
+    public static String getRtmpUrl() {
+        return rtmpUrl;
     }
 
-    public static void assertGopTextField (AppiumDriver<WebElement> driver) {
-        WebElement t = driver.findElement(By.className("TextField[2]"));
-        t.click();
-        t.clear();
-
-        Random r = new Random();
-        int n = r.nextInt(7)+ 1;
-
-        t.sendKeys(String.valueOf(n));
-
-        Handle.sleep(1000);
-
-        Assert.assertEquals(t.getText(), String.valueOf(n));
+    public static void setRtmpUrl(String rtmpUrl) {
+        MainPage.rtmpUrl = rtmpUrl;
     }
 
-    public static void assertRateTextField (AppiumDriver<WebElement> driver) {
-        WebElement t = driver.findElement(By.className("TextField[3]"));
-        t.click();
-        t.clear();
-
-        Random r = new Random();
-        int n = r.nextInt(488)+ 512;
-
-        t.sendKeys(String.valueOf(n) + 000);
-
-        Handle.sleep(1000);
-
-        Assert.assertEquals(t.getText(), String.valueOf(n));
-    }
-
-    public static void assertRtmpTextField (AppiumDriver<WebElement> driver) {
-        WebElement t = driver.findElement(By.className("TextField[5]"));
-//        t.click();
-
-        Random r = new Random();
-        int n = r.nextInt(100)+ 1;
-
-        String rtmpUrlString = rtmpUrl + String.valueOf(n);
-
-        /*最后随机生成一个数字作为地址*/
-//        t.sendKeys(rtmpUrlString);
-
-        Handle.assertTestFieldSendKeys(t, rtmpUrlString);
-
-//        Handle.sleep(500);
-//
-//        Assert.assertEquals(t.getText(), rtmpUrlString);
-//
-//        Handle.sleep(500);
-
-        WebElement rtmpLabel = driver.findElement(By.name(rtmpUrlString));
-        rtmpLabel.isDisplayed();
-
-    }
-
-    public static void clickAddBtn (AppiumDriver<WebElement> driver) {
-        /*点击add 按钮*/
-        WebElement add = driver.findElement(By.name("Add"));
-        add.click();
-    }
-
-    public static void clickCancelBtn (AppiumDriver<WebElement> driver) {
-        WebElement d = driver.findElement(By.name("Cancel"));
-        d.click();
-    }
-
-
-    public static void clickApplyBtn (AppiumDriver<WebElement> driver) {
-        WebElement d = driver.findElement(By.name("Apply"));
-        d.click();
-    }
-
-
-    public static void changeDefinition (AppiumDriver<WebElement> driver, boolean up) {
-        /*
-        切换清晰度, 默认480P
-        */
-        WebElement pickerWheel = driver.findElement(By.className("PickerWheel"));
-
-        /*思路：获取到picker的中心位置，在其Y轴上偏移上下20点，进行Tap*/
-        int settingX = pickerWheel.getRect().getWidth() / 2;
-        int settingY = pickerWheel.getSize().getHeight() / 2;
-
-        /*
-        * 如果是往上走，就y-20
-        * 如果是往下走，就y+20
-        *
-        * */
-        if (up) {
-            settingY -= 20;
-        } else {
-            settingY += 20;
-        }
-
-        TouchAction pickerWheelChangeValue = new TouchAction(driver);
-        pickerWheelChangeValue.tap(pickerWheel, settingX, settingY);
-        pickerWheelChangeValue.perform();
-
-        Handle.sleep(2000);
-
-
-
-    }
 
 }

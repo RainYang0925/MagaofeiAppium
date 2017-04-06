@@ -8,7 +8,9 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSDriver;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import sun.applet.Main;
@@ -18,6 +20,8 @@ import java.net.URL;
 /**
  * Created by MAMIAN on 2017/3/31.
  */
+/*测试顺序按照方法名排序*/
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MainCase {
 
     private AppiumDriver<WebElement> driver;
@@ -34,50 +38,153 @@ public class MainCase {
         capabilities.setCapability("bundleId","com.haoweilai.TALPublisher");
         capabilities.setCapability("udid","auto");
 
-//        capabilities.setCapability("noReset", true);
-        capabilities.setCapability("xcodeOrgId","N5G28WF2Y2");
-        capabilities.setCapability("xcodeSigningId","iPhone Developer");
+        capabilities.setCapability("noReset", true);
+//        capabilities.setCapability("xcodeOrgId","N5G28WF2Y2");
+//        capabilities.setCapability("xcodeSigningId","iPhone Developer");
 
 
 
         driver = new IOSDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 
-        MainPage.toSettingsController(driver);
+//        MainPage.toSettingsController(driver);
+
     }
 
     @After
     public void tearDown() throws Exception {
-        /*测试完毕之后，不退出应用，但需要重新调起WebDriverAgent*/
-//        driver.quit();
+        /*即使退出也会保存*/
+        driver.quit();
     }
 
+
     @Test
-    public void testDefault () {
+    public void test001Default () {
 
-        MainPage.changeDefinition(driver, true);
+        /*校验初始值*/
+        MainPage.assertDefaultValue(driver);
 
+        /*切换到指定目标的分辨率*/
+//        MainPage.changeTopDefinition(driver);
+
+        /*校验输入*/
         MainPage.assertFpsTextField(driver);
         MainPage.assertGopTextField(driver);
         MainPage.assertRateTextField(driver);
         MainPage.assertRtmpTextField(driver);
         MainPage.clickAddBtn(driver);
 
-        MainPage.clickApplyBtn(driver);
 
-        MainPage.clickStartPreviewBtn(driver);
-        MainPage.clickStartPushBtn(driver);
+        MainPage.startPushLoop(driver);
 
-        MainPage.clickStopPreviewBtn(driver);
-        MainPage.clickStopPushBtn(driver);
+//        /*点击应用按钮*/
+//        MainPage.clickApplyBtn(driver);
+//
+//        /*开始*/
+//        MainPage.clickStartPreviewBtn(driver);
+//        MainPage.clickStartPushBtn(driver);
+//
+//        Handle.sleep(10000);
+//        /*关闭*/
+//        MainPage.clickStopPreviewBtn(driver);
+//        MainPage.clickStopPushBtn(driver);
 
 
     }
 
     @Test
-    public void testUIWide360P () {
+    public void test002480P () {
         MainPage.changeDefinition(driver, false);
-        MainPage.changeDefinition(driver, false);
+        MainPage.startPushLoop(driver);
     }
+
+    @Test
+    public void test003Wide360P () {
+        MainPage.changeDefinition(driver, false);
+        MainPage.startPushLoop(driver);
+    }
+
+    @Test
+    public void test004360P () {
+        MainPage.changeDefinition(driver, false);
+        MainPage.startPushLoop(driver);
+    }
+
+    @Test
+    public void test005288P () {
+        MainPage.changeDefinition(driver, false);
+        MainPage.startPushLoop(driver);
+    }
+
+    @Test
+    public void test006180P () {
+        MainPage.changeDefinition(driver, false);
+        MainPage.startPushLoop(driver);
+    }
+
+    @Test
+    public void test007720x720 () {
+        MainPage.changeDefinition(driver, false);
+        MainPage.startPushLoop(driver);
+    }
+
+    @Test
+    public void test008480x480 () {
+        MainPage.changeDefinition(driver, false);
+        MainPage.startPushLoop(driver);
+    }
+
+    @Test
+    public void test009360x360 () {
+        MainPage.changeDefinition(driver, false);
+        MainPage.startPushLoop(driver);
+    }
+
+    @Test
+    public void test010288x288 () {
+        MainPage.changeDefinition(driver, false);
+        MainPage.startPushLoop(driver);
+    }
+
+    @Test
+    public void test011188x188 () {
+        MainPage.changeDefinition(driver, false);
+        MainPage.startPushLoop(driver);
+    }
+
+    /*测试美颜*/
+    public  @Test void test012BeautSwitch () {
+
+        /*720P*/
+        MainPage.changeTopDefinition(driver);
+        /*打开*/
+        MainPage.clickBeautySwitch(driver, true);
+
+
+        MainPage.startPushLoop(driver);
+
+        MainPage.toSettingsController(driver);
+
+        /*有开始就要有关闭*/
+        MainPage.clickBeautySwitch(driver, false);
+        MainPage.clickApplyBtn(driver);
+        // 要Apply
+    }
+
+    /*测试后置摄像头720P*/
+    public  @Test void test013Back720P () {
+        /*720P*/
+        MainPage.changeTopDefinition(driver);
+
+
+        MainPage.clickBackTab(driver);
+
+        MainPage.startPushLoop(driver);
+
+
+    }
+
+
+
 
     /*
     * 10~20
