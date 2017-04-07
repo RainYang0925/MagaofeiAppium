@@ -2,6 +2,7 @@ package com.magaofei.tal.common;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.ios.IOSTouchAction;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -16,7 +17,13 @@ public class Handle {
 
     }
 
-    /*验证向TextField发送的key*/
+    /*验证向TextField发送的key
+    * 由于是固定操作，所以封装起来
+    * 先点击
+    * 再清除
+    * 再发送
+    * 最后验证
+    * */
     public static void assertTestFieldSendKeys(WebElement d, String s) {
         d.click();
         d.clear();
@@ -25,27 +32,29 @@ public class Handle {
         Assert.assertEquals(d.getText(), s);
     }
 
-//    public static Dimension (AppiumDriver driver) {
-////        WebElement w = driver.findElement(By.className("Window"));
-////        return driver.manage().window().getSize();
-//        Dimension s = driver.manage().window().getSize();
-////        return w.getRect();
-//        return s;
-//
-//
-//    }
+    public static void assertStaticTextValue (WebElement d, String s) {
+        Assert.assertEquals(d.getText(), s);
+    }
+
+    /**寻找到当前页面的Window*/
+    public static WebElement window (AppiumDriver<WebElement> driver) {
+        return driver.findElement(By.className("Window"));
+    }
+
+    public static void iosDoubleClick (AppiumDriver<WebElement> driver, WebElement t, int x, int y) {
+        IOSTouchAction d = new IOSTouchAction(driver);
+        d.doubleTap(t, x, y);
+        /*
+        必须要加perform才生效
+        * */
+        d.perform();
+    }
+
 
     public static void click(WebElement d) {
         d.click();
     }
 
-//    public static void sleep(long timeOut) {
-//        try {
-//            Thread.sleep(timeOut);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     /*拖动操作
     * 其本质是，按住然后移动到指定位置
@@ -56,13 +65,7 @@ public class Handle {
         t.press(target, x, y).waitAction(300).moveTo(target, x, targetY).release().perform();
     }
 
-    public static void customSleep (long timeOut) {
-        try {
-            Thread.sleep(timeOut);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     /*每一次Switch单击时都需要确认*/
     public static void clickSwitch (WebElement f, boolean targetValue) {
@@ -76,6 +79,16 @@ public class Handle {
         }
     }
 
+
+
+    /*自定义等待时长*/
+    public static void customSleep (long timeOut) {
+        try {
+            Thread.sleep(timeOut);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public static void controllerSceneSleep () {

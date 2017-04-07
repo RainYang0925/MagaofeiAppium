@@ -73,8 +73,7 @@ public class MainCase {
         MainPage.assertRtmpTextField(driver);
         MainPage.clickAddBtn(driver);
 
-
-        MainPage.startPushLoop(driver);
+        MainPage.startPushLoop(driver, "720", "1280");
 
 //        /*点击应用按钮*/
 //        MainPage.clickApplyBtn(driver);
@@ -94,61 +93,61 @@ public class MainCase {
     @Test
     public void test002480P () {
         MainPage.changeDefinition(driver, false);
-        MainPage.startPushLoop(driver);
+        MainPage.startPushLoop(driver, "480", "640");
     }
 
     @Test
     public void test003Wide360P () {
         MainPage.changeDefinition(driver, false);
-        MainPage.startPushLoop(driver);
+        MainPage.startPushLoop(driver, "360", "640");
     }
 
     @Test
     public void test004360P () {
         MainPage.changeDefinition(driver, false);
-        MainPage.startPushLoop(driver);
+        MainPage.startPushLoop(driver, "360", "480");
     }
 
     @Test
     public void test005288P () {
         MainPage.changeDefinition(driver, false);
-        MainPage.startPushLoop(driver);
+        MainPage.startPushLoop(driver, "288", "352");
     }
 
     @Test
     public void test006180P () {
         MainPage.changeDefinition(driver, false);
-        MainPage.startPushLoop(driver);
+        MainPage.startPushLoop(driver, "180", "320");
     }
 
     @Test
     public void test007720x720 () {
         MainPage.changeDefinition(driver, false);
-        MainPage.startPushLoop(driver);
+        MainPage.startPushLoop(driver, "720", "720");
     }
 
     @Test
     public void test008480x480 () {
         MainPage.changeDefinition(driver, false);
-        MainPage.startPushLoop(driver);
+        MainPage.startPushLoop(driver, "480", "480");
     }
 
     @Test
     public void test009360x360 () {
         MainPage.changeDefinition(driver, false);
-        MainPage.startPushLoop(driver);
+        MainPage.startPushLoop(driver, "360", "360");
     }
 
     @Test
     public void test010288x288 () {
         MainPage.changeDefinition(driver, false);
-        MainPage.startPushLoop(driver);
+        MainPage.startPushLoop(driver, "288", "288");
     }
 
     @Test
     public void test011188x188 () {
         MainPage.changeDefinition(driver, false);
-        MainPage.startPushLoop(driver);
+        MainPage.startPushLoop(driver, "188", "188");
     }
 
     /*测试美颜*/
@@ -160,7 +159,7 @@ public class MainCase {
         MainPage.clickBeautySwitch(driver, true);
 
 
-        MainPage.startPushLoop(driver);
+        MainPage.startPushLoop(driver, "720", "1080");
 
         MainPage.toSettingsController(driver);
 
@@ -178,7 +177,7 @@ public class MainCase {
 
         MainPage.clickBackTab(driver);
 
-        MainPage.startPushLoop(driver);
+        MainPage.startPushLoop(driver, "720", "1080");
 
 
     }

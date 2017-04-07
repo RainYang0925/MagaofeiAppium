@@ -3,7 +3,6 @@ package com.magaofei.tal.page.talpublish;
 import com.magaofei.tal.common.Handle;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.ios.IOSTouchAction;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 
@@ -22,7 +21,35 @@ public class MainPage {
 
     private static String rtmpUrl = "rtmp://10.2.250.92/live_haibian/";
 
-    /*校验所有按钮的初始值*/
+    /**校验设置推流的值是否正确*/
+    public static void assertCaptureValue (AppiumDriver<WebElement> driver) {
+        /*思路
+        * 1. 点击屏幕中心跳转
+        * 2. 找到CaptureWidth 和 CaptureHeight
+        * 3. 校验值
+        *
+        *
+        * */
+
+
+
+
+    }
+
+    /**跳转到当前推流的详细信息*/
+    private static void toDetailsInfo (AppiumDriver<WebElement> driver) {
+        int x = driver.manage().window().getSize().getHeight();
+        int y = driver.manage().window().getSize().getWidth();
+        x = x / 2;
+        y = y / 2;
+        WebElement w = Handle.window(driver);
+
+        Handle.iosDoubleClick(driver, w, x, y);
+    }
+
+
+
+    /**校验所有按钮的初始值*/
     public static void assertDefaultValue (AppiumDriver<WebElement> driver) {
         /*切换到最顶部*/
         changeTopDefinition(driver);
@@ -45,7 +72,38 @@ public class MainPage {
 
     }
 
-    /*find*/
+    /**find*/
+
+    private static WebElement captureWidth (AppiumDriver<WebElement> driver) {
+        return driver.findElement(By.name("captureWidth"));
+    }
+
+
+    private static WebElement captureHeight (AppiumDriver<WebElement> driver) {
+        return driver.findElement(By.name("captureHeight"));
+    }
+
+    private static WebElement captureWidthCell (AppiumDriver<WebElement> driver) {
+        List<WebElement> l = driver.findElements(By.className("Cell"));
+        /*第三个cell*/
+        return l.get(2);
+    }
+
+    /**捕捉宽度的值*/
+    private static WebElement captureWidthValue (AppiumDriver<WebElement> driver) {
+        List<WebElement> l = driver.findElements(By.className("StaticText"));
+        /*第七个*/
+        return l.get(6);
+    }
+
+    /**捕捉高度的值*/
+    private static WebElement captureHeightValue (AppiumDriver<WebElement> driver) {
+        List<WebElement> l = driver.findElements(By.className("StaticText"));
+        /*第9个*/
+        return l.get(8);
+    }
+
+
     private static WebElement frontTab (AppiumDriver<WebElement> driver) {
         return driver.findElement(By.name("Front"));
     }
@@ -92,6 +150,100 @@ public class MainPage {
         return driver.findElement(By.name("Add"));
     }
 
+    private static WebElement cancelBtn (AppiumDriver<WebElement> driver) {
+        return driver.findElement(By.name("Cancel"));
+    }
+
+    private static WebElement applyBtn (AppiumDriver<WebElement> driver) {
+        return driver.findElement(By.name("Apply"));
+    }
+
+
+    /**操作*/
+
+    /**验证捕捉视频宽度值*/
+    public static void assertCaptureWidthValue (AppiumDriver<WebElement> driver, String s) {
+        Handle.assertStaticTextValue(captureWidthValue(driver), s);
+    }
+
+    /**验证捕捉视频高度值*/
+    public static void assertCaptureHeightValue (AppiumDriver<WebElement> driver, String s) {
+        Handle.assertStaticTextValue(captureHeightValue(driver), s);
+    }
+
+    public static void clickBackTab (AppiumDriver<WebElement> driver) {
+        backTab(driver).click();
+
+    }
+
+    public static void clickFrontTab (AppiumDriver<WebElement> driver) {
+        frontTab(driver).click();
+    }
+
+
+    public static void clickBeautySwitch (AppiumDriver<WebElement> driver, boolean targetValue) {
+        WebElement f = beautSwitch(driver);
+
+        Handle.clickSwitch(f, targetValue);
+
+
+    }
+
+    public static void clickAddBtn (AppiumDriver<WebElement> driver) {
+        /*点击add 按钮*/
+//        addBtn(driver).click();
+        Handle.click(addBtn(driver));
+    }
+
+    /*todo 优化代码*/
+
+    public static void clickCancelBtn (AppiumDriver<WebElement> driver) {
+        Handle.click(applyBtn(driver));
+    }
+
+
+    public static void clickApplyBtn (AppiumDriver<WebElement> driver) {
+        Handle.click(applyBtn(driver));
+
+        Handle.controllerSceneSleep();
+    }
+
+    private static void clickStartPreviewBtn (AppiumDriver<WebElement> driver) {
+        WebElement d = driver.findElement(By.name("StartPreview"));
+        d.click();
+    }
+    private static void clickStartPushBtn (AppiumDriver<WebElement> driver) {
+        WebElement d = driver.findElement(By.name("StartPush"));
+        d.click();
+    }
+
+    private static void clickStopPreviewBtn (AppiumDriver<WebElement> driver) {
+        WebElement d = driver.findElement(By.name("StopPreview"));
+        d.click();
+    }
+    private static void clickStopPushBtn (AppiumDriver<WebElement> driver) {
+        WebElement d = driver.findElement(By.name("StopPush"));
+        d.click();
+    }
+
+    public static void clickMuteSpeakerBtn (AppiumDriver<WebElement> driver) {
+        WebElement d = driver.findElement(By.name("MuteSpeaker"));
+        d.click();
+    }
+    public static void clickStartRecordBtn (AppiumDriver<WebElement> driver) {
+        WebElement d = driver.findElement(By.name("StartRecord"));
+        d.click();
+    }
+
+    public static String getRtmpUrl() {
+        return rtmpUrl;
+    }
+
+    public static void setRtmpUrl(String rtmpUrl) {
+        MainPage.rtmpUrl = rtmpUrl;
+    }
+
+
 
     public static void toSettingsController (AppiumDriver<WebElement> driver) {
         /*
@@ -104,13 +256,9 @@ public class MainPage {
 //        WebElement StartRecord = driver.findElement(By.name("StartRecord"));
 //
         WebElement bottomView = otherView(driver);
+        /*1 1在左上角，在下面的Other中的任意位置双击都可以*/
+        Handle.iosDoubleClick(driver, bottomView, 1, 1);
 
-        IOSTouchAction doubleClickIOS = new IOSTouchAction(driver);
-        doubleClickIOS.doubleTap(bottomView, 1, 1);
-        /*
-        必须要加perform才生效
-        * */
-        doubleClickIOS.perform();
 
         Handle.controllerSceneSleep();
 
@@ -225,7 +373,7 @@ public class MainPage {
         Handle.defaultSleep();
     }
 
-    public static void startPushLoop (AppiumDriver<WebElement> driver) {
+    public static void startPushLoop (AppiumDriver<WebElement> driver, String width, String height) {
         /*点击应用按钮*/
         MainPage.clickApplyBtn(driver);
 
@@ -239,6 +387,17 @@ public class MainPage {
         MainPage.clickStartPushBtn(driver);
 //        Handle.sleep(500);
 //        driver.findElement(By.name("[Status] PublishStarted"));
+        /*播放一秒后再开始验证*/
+        Handle.defaultSleep();
+
+        /*验证是否是width和height*/
+        toDetailsInfo(driver);
+        assertCaptureWidthValue(driver, width);
+        assertCaptureHeightValue(driver, height);
+
+        /*关闭详细信息*/
+        Handle.defaultSleep();
+        toDetailsInfo(driver);
 
         /*播放10秒*/
         Handle.customSleep(10000);
@@ -264,82 +423,6 @@ public class MainPage {
         /*关闭*/
     }
 
-
-
-    /*操作*/
-    public static void clickBackTab (AppiumDriver<WebElement> driver) {
-        backTab(driver).click();
-
-    }
-
-    public static void clickFrontTab (AppiumDriver<WebElement> driver) {
-        frontTab(driver).click();
-    }
-
-
-    public static void clickBeautySwitch (AppiumDriver<WebElement> driver, boolean targetValue) {
-        WebElement f = beautSwitch(driver);
-
-        Handle.clickSwitch(f, targetValue);
-
-
-    }
-
-    public static void clickAddBtn (AppiumDriver<WebElement> driver) {
-        /*点击add 按钮*/
-//        addBtn(driver).click();
-        Handle.click(addBtn(driver));
-    }
-
-    /*todo 优化代码*/
-
-    public static void clickCancelBtn (AppiumDriver<WebElement> driver) {
-        WebElement d = driver.findElement(By.name("Cancel"));
-        d.click();
-    }
-
-
-    public static void clickApplyBtn (AppiumDriver<WebElement> driver) {
-        WebElement d = driver.findElement(By.name("Apply"));
-        d.click();
-
-        Handle.controllerSceneSleep();
-    }
-
-    public static void clickStartPreviewBtn (AppiumDriver<WebElement> driver) {
-        WebElement d = driver.findElement(By.name("StartPreview"));
-        d.click();
-    }
-    public static void clickStartPushBtn (AppiumDriver<WebElement> driver) {
-        WebElement d = driver.findElement(By.name("StartPush"));
-        d.click();
-    }
-
-    public static void clickStopPreviewBtn (AppiumDriver<WebElement> driver) {
-        WebElement d = driver.findElement(By.name("StopPreview"));
-        d.click();
-    }
-    public static void clickStopPushBtn (AppiumDriver<WebElement> driver) {
-        WebElement d = driver.findElement(By.name("StopPush"));
-        d.click();
-    }
-
-    public static void clickMuteSpeakerBtn (AppiumDriver<WebElement> driver) {
-        WebElement d = driver.findElement(By.name("MuteSpeaker"));
-        d.click();
-    }
-    public static void clickStartRecordBtn (AppiumDriver<WebElement> driver) {
-        WebElement d = driver.findElement(By.name("StartRecord"));
-        d.click();
-    }
-
-    public static String getRtmpUrl() {
-        return rtmpUrl;
-    }
-
-    public static void setRtmpUrl(String rtmpUrl) {
-        MainPage.rtmpUrl = rtmpUrl;
-    }
 
 
 }
