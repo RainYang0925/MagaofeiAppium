@@ -2,10 +2,13 @@ package com.magaofei.tal.testcase.talpublish;
 
 import com.magaofei.tal.page.talpublish.MainPage;
 import com.magaofei.tal.common.Handle;
+import com.magaofei.tal.config.CapabilitiesSetup;
+import com.magaofei.tal.config.driverSetup;
 /*双击*/
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSDriver;
+import jdk.nashorn.internal.runtime.regexp.joni.Config;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -30,21 +33,24 @@ public class MainCase {
     public void setUp() throws Exception {
 
 
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("platformVersion", "10.3");
-        capabilities.setCapability("deviceName", "MAMIANsiPhone");
-//        capabilities.setCapability("app", app.getAbsolutePath());
-        capabilities.setCapability("automationName","XCUITest");
-        capabilities.setCapability("bundleId","com.haoweilai.TALPublisher");
-        capabilities.setCapability("udid","auto");
-
-        capabilities.setCapability("noReset", true);
+//        DesiredCapabilities capabilities = new DesiredCapabilities();
+//        capabilities.setCapability("platformVersion", "10.3");
+//        capabilities.setCapability("deviceName", "MAMIANsiPhone");
+////        capabilities.setCapability("app", app.getAbsolutePath());
+//        capabilities.setCapability("automationName","XCUITest");
+//        capabilities.setCapability("bundleId","com.haoweilai.TALPublisher");
+//        capabilities.setCapability("udid","b43c63aac03fb48c3b40fd3cf886ad30bef9f73f");
+//        // b43c63aac03fb48c3b40fd3cf886ad30bef9f73f   mengdeiPhone
+//        // 4fde6542011bd1a001a41edac73f0e492af603b4
+//
+//        capabilities.setCapability("wdaLocalPort", "8002");
+//        capabilities.setCapability("noReset", true);
 //        capabilities.setCapability("xcodeOrgId","N5G28WF2Y2");
 //        capabilities.setCapability("xcodeSigningId","iPhone Developer");
 
 
 
-        driver = new IOSDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+        driver = new IOSDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), CapabilitiesSetup.iosParameter());
 
 //        MainPage.toSettingsController(driver);
 
@@ -145,13 +151,13 @@ public class MainCase {
     }
 
     @Test
-    public void test011188x188 () {
+    public void test011180x180 () {
         MainPage.changeDefinition(driver, false);
-        MainPage.startPushLoop(driver, "188", "188");
+        MainPage.startPushLoop(driver, "180", "180");
     }
 
     /*测试美颜*/
-    public  @Test void test012BeautSwitch () {
+    public  @Test void test012BeautSwitch720P () {
 
         /*720P*/
         MainPage.changeTopDefinition(driver);
@@ -159,7 +165,7 @@ public class MainCase {
         MainPage.clickBeautySwitch(driver, true);
 
 
-        MainPage.startPushLoop(driver, "720", "1080");
+        MainPage.startPushLoop(driver, "720", "1280");
 
         MainPage.toSettingsController(driver);
 
@@ -177,7 +183,7 @@ public class MainCase {
 
         MainPage.clickBackTab(driver);
 
-        MainPage.startPushLoop(driver, "720", "1080");
+        MainPage.startPushLoop(driver, "720", "1280");
 
 
     }

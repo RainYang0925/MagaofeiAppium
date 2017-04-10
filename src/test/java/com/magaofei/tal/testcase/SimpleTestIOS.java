@@ -1,28 +1,22 @@
 package com.magaofei.tal.testcase;
 
 import io.appium.java_client.ios.IOSDriver;
-import org.hamcrest.core.IsEqual;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.internal.FindsByClassName;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.FindBy;
 
 //import java.lang.Thread;
 
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-import com.magaofei.tal.common.TestUtil;
-import com.magaofei.tal.common.CapabilitiesSetup;
+import com.magaofei.tal.config.CapabilitiesSetup;
 
 
 /**

@@ -1,0 +1,20 @@
+2017-04-07T18:24:52.850451000 0.017901s notice: Recursively removing directory /Users/MAMIAN/GitHub/magaofei_appium_junit/rethinkdb_data/tmp
+2017-04-07T18:24:52.851854000 0.019308s notice: Initializing directory /Users/MAMIAN/GitHub/magaofei_appium_junit/rethinkdb_data
+2017-04-07T18:24:52.851947000 0.019397s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/Users/MAMIAN/GitHub/magaofei_appium_junit/rethinkdb_data' did not already exist or is empty.)
+2017-04-07T18:24:52.852015000 0.019465s notice: Running rethinkdb 2.3.5 (CLANG 8.0.0 (clang-800.0.38))...
+2017-04-07T18:24:52.857141000 0.024591s notice: Running on Darwin 16.5.0 x86_64
+2017-04-07T18:24:52.857185000 0.024635s notice: Loading data from directory /Users/MAMIAN/GitHub/magaofei_appium_junit/rethinkdb_data
+2017-04-07T18:24:52.970724000 0.138174s info: Automatically using cache size of 173 MB
+2017-04-07T18:24:52.971555000 0.139004s notice: Listening for intracluster connections on port 29015
+2017-04-07T18:24:52.973396000 0.140846s notice: Listening for client driver connections on port 28015
+2017-04-07T18:24:52.973501000 0.140951s notice: Listening for administrative HTTP connections on port 8080
+2017-04-07T18:24:52.973504000 0.140953s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2017-04-07T18:24:52.973509000 0.140958s notice: Listening on driver addresses: 127.0.0.1, ::1
+2017-04-07T18:24:52.973510000 0.140960s notice: Listening on http addresses: 127.0.0.1, ::1
+2017-04-07T18:24:52.973513000 0.140963s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2017-04-07T18:24:52.973517000 0.140967s notice: Server ready, "localhost_r24" d1a4bbb1-c452-422e-948a-075616928e10
+2017-04-07T18:24:55.301555000 2.468951s notice: Server got SIGINT from pid 14538, uid 501; shutting down...
+2017-04-07T18:24:55.301739000 2.469135s notice: Shutting down client connections...
+2017-04-07T18:24:55.301889000 2.469285s notice: All client connections closed.
+2017-04-07T18:24:55.301900000 2.469296s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2017-04-07T18:24:55.304855000 2.472251s notice: Storage engine shut down.
