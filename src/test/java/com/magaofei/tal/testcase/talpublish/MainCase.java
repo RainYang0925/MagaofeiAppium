@@ -50,7 +50,7 @@ public class MainCase {
 
 
 
-        driver = new IOSDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), CapabilitiesSetup.iosParameter());
+        driver = new IOSDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), CapabilitiesSetup.readFile());
 
 //        MainPage.toSettingsController(driver);
 
