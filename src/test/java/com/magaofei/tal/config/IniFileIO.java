@@ -1,7 +1,7 @@
 package com.magaofei.tal.config;
 
 import io.appium.java_client.AppiumDriver;
-import org.ini4j.Wini;
+
 import org.junit.Test;
 
 import java.io.FileInputStream;
@@ -21,7 +21,7 @@ public class IniFileIO {
 
 
     public void sample01(String filename) throws IOException {
-        Wini ini = new Wini(new File(filename));
+//        Wini ini = new Wini(new File(filename));
 //        int age = ini.get("demo", "age", int.class);
 //        double height = ini.get("demo", "height", double.class);
 //        String dir = ini.get("demo", "homeDir");
@@ -30,14 +30,14 @@ public class IniFileIO {
 //        System.out.println(height);
 //        System.out.println(dir);
 
-        Map<String, String> appiumIni = ini.get("appium");
-
-        String platformVersion = appiumIni.get("platformVersion");
-        String weight = appiumIni.get("weight");
-        String homeDir = appiumIni.get("homeDir");
-
-        // get all section names
-        Set<String> sectionNames = ini.keySet();
+//        Map<String, String> appiumIni = ini.get("appium");
+//
+//        String platformVersion = appiumIni.get("platformVersion");
+//        String weight = appiumIni.get("weight");
+//        String homeDir = appiumIni.get("homeDir");
+//
+//        // get all section names
+//        Set<String> sectionNames = ini.keySet();
     }
 
     @Test

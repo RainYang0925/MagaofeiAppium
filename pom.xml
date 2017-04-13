@@ -19,7 +19,7 @@
         <dependency>
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>
-            <version>5.0.0-BETA6</version>
+            <version>5.0.0-BETA7</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.ini4j/ini4j -->

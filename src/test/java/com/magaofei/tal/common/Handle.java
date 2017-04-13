@@ -7,7 +7,7 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Rectangle;
-import org.openqa.selenium.WebElement;
+import io.appium.java_client.MobileElement;
 
 /**
  * Created by MAMIAN on 2017/3/31.
@@ -24,7 +24,8 @@ public class Handle {
     * 再发送
     * 最后验证
     * */
-    public static void assertTestFieldSendKeys(WebElement d, String s) {
+    public static void assertTestFieldSendKeys(MobileElement d, String s) {
+
         d.click();
         d.clear();
         d.sendKeys(s);
@@ -32,16 +33,16 @@ public class Handle {
         Assert.assertEquals(d.getText(), s);
     }
 
-    public static void assertStaticTextValue (WebElement d, String s) {
+    public static void assertStaticTextValue (MobileElement d, String s) {
         Assert.assertEquals(d.getText(), s);
     }
 
     /**寻找到当前页面的Window*/
-    public static WebElement window (AppiumDriver<WebElement> driver) {
+    public static MobileElement window (AppiumDriver<MobileElement> driver) {
         return driver.findElement(By.className("Window"));
     }
 
-    public static void iosDoubleClick (AppiumDriver<WebElement> driver, WebElement t, int x, int y) {
+    public static void iosDoubleClick (AppiumDriver<MobileElement> driver, MobileElement t, int x, int y) {
         IOSTouchAction d = new IOSTouchAction(driver);
         d.doubleTap(t, x, y);
         /*
@@ -51,7 +52,7 @@ public class Handle {
     }
 
 
-    public static void click(WebElement d) {
+    public static void click(MobileElement d) {
         d.click();
     }
 
@@ -62,7 +63,7 @@ public class Handle {
     * 其本质是，按住然后移动到指定位置
     *
     * */
-    public static void swipe (AppiumDriver<WebElement> driver, WebElement target, int x , int y, int targetX, int targetY) {
+    public static void swipe (AppiumDriver<MobileElement> driver, MobileElement target, int x , int y, int targetX, int targetY) {
         TouchAction t = new TouchAction(driver);
         t.press(target, x, y).waitAction(300).moveTo(target, x, targetY).release().perform();
     }
@@ -70,7 +71,7 @@ public class Handle {
 
 
     /*每一次Switch单击时都需要确认*/
-    public static void clickSwitch (WebElement f, boolean targetValue) {
+    public static void clickSwitch (MobileElement f, boolean targetValue) {
         /*如果不是目标值就点击*/
         /*
         * true  --> 打开

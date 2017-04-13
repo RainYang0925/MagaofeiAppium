@@ -1,13 +1,16 @@
 package com.magaofei.tal.page.talpublish;
 
+
+
 import com.magaofei.tal.common.Handle;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import org.junit.Assert;
 import com.magaofei.tal.page.talpublish.Find;
 import org.openqa.selenium.By;
 
-import org.openqa.selenium.WebElement;
+import io.appium.java_client.MobileElement;
 
 import java.util.List;
 import java.util.Random;
@@ -23,7 +26,7 @@ public class MainPage {
     private static String rtmpUrl = "rtmp://10.2.250.92/live_haibian/";
 
     /**校验设置推流的值是否正确*/
-    public static void assertCaptureValue (AppiumDriver<WebElement> driver) {
+    public static void assertCaptureValue (AppiumDriver<MobileElement> driver) {
         /*思路
         * 1. 点击屏幕中心跳转
         * 2. 找到CaptureWidth 和 CaptureHeight
@@ -38,33 +41,35 @@ public class MainPage {
     }
 
     /**跳转到当前推流的详细信息*/
-    private static void toDetailsInfo (AppiumDriver<WebElement> driver) {
+    private static void toDetailsInfo (AppiumDriver<MobileElement> driver) {
         int x = driver.manage().window().getSize().getHeight();
         int y = driver.manage().window().getSize().getWidth();
         x = x / 2;
         y = y / 2;
-        WebElement w = Handle.window(driver);
+        MobileElement w = Handle.window(driver);
 
         Handle.iosDoubleClick(driver, w, x, y);
+
     }
 
 
 
     /**校验所有按钮的初始值*/
-    public static void assertDefaultValue (AppiumDriver<WebElement> driver) {
+    public static void assertDefaultValue (AppiumDriver<MobileElement> driver) {
         /*切换到最顶部*/
         changeTopDefinition(driver);
         /*保证是前置*/
 
-        WebElement f = Find.frontTab(driver);
+        MobileElement f = Find.frontTab(driver);
 //        System.out.println(f.getAttribute("value"));
 //
         if (!f.getAttribute("value").equals("false")) {
             f.click();
         }
 
+
         /*判断Switch的值是不是false*/
-        WebElement b = Find.beautSwitch(driver);
+        MobileElement b = Find.beautSwitch(driver);
 //        System.out.println(b.getAttribute("value"));
 
         if (!b.getAttribute("value").equals("false")) {
@@ -79,34 +84,34 @@ public class MainPage {
     /**操作*/
 
     /**验证捕捉视频宽度值*/
-    public static void assertCaptureWidthValue (AppiumDriver<WebElement> driver, String s) {
+    public static void assertCaptureWidthValue (AppiumDriver<MobileElement> driver, String s) {
         Handle.assertStaticTextValue(Find.captureWidthValue(driver), s);
     }
 
     /**验证捕捉视频高度值*/
-    public static void assertCaptureHeightValue (AppiumDriver<WebElement> driver, String s) {
+    public static void assertCaptureHeightValue (AppiumDriver<MobileElement> driver, String s) {
         Handle.assertStaticTextValue(Find.captureHeightValue(driver), s);
     }
 
-    public static void clickBackTab (AppiumDriver<WebElement> driver) {
+    public static void clickBackTab (AppiumDriver<MobileElement> driver) {
         Find.backTab(driver).click();
 
     }
 
-    public static void clickFrontTab (AppiumDriver<WebElement> driver) {
+    public static void clickFrontTab (AppiumDriver<MobileElement> driver) {
         Find.frontTab(driver).click();
     }
 
 
-    public static void clickBeautySwitch (AppiumDriver<WebElement> driver, boolean targetValue) {
-        WebElement f = Find.beautSwitch(driver);
+    public static void clickBeautySwitch (AppiumDriver<MobileElement> driver, boolean targetValue) {
+        MobileElement f = Find.beautSwitch(driver);
 
         Handle.clickSwitch(f, targetValue);
 
 
     }
 
-    public static void clickAddBtn (AppiumDriver<WebElement> driver) {
+    public static void clickAddBtn (AppiumDriver<MobileElement> driver) {
         /*点击add 按钮*/
 //        addBtn(driver).click();
         Handle.click(Find.addBtn(driver));
@@ -114,42 +119,42 @@ public class MainPage {
 
     /*todo 优化代码*/
 
-    public static void clickCancelBtn (AppiumDriver<WebElement> driver) {
+    public static void clickCancelBtn (AppiumDriver<MobileElement> driver) {
         Handle.click(Find.applyBtn(driver));
     }
 
 
-    public static void clickApplyBtn (AppiumDriver<WebElement> driver) {
+    public static void clickApplyBtn (AppiumDriver<MobileElement> driver) {
         Handle.click(Find.applyBtn(driver));
 
         /*界面跳转等待*/
         Handle.controllerSceneSleep();
     }
 
-    private static void clickStartPreviewBtn (AppiumDriver<WebElement> driver) {
-        WebElement d = driver.findElement(By.name("StartPreview"));
+    private static void clickStartPreviewBtn (AppiumDriver<MobileElement> driver) {
+        MobileElement d = driver.findElement(By.name("StartPreview"));
         d.click();
     }
-    private static void clickStartPushBtn (AppiumDriver<WebElement> driver) {
-        WebElement d = driver.findElement(By.name("StartPush"));
-        d.click();
-    }
-
-    private static void clickStopPreviewBtn (AppiumDriver<WebElement> driver) {
-        WebElement d = driver.findElement(By.name("StopPreview"));
-        d.click();
-    }
-    private static void clickStopPushBtn (AppiumDriver<WebElement> driver) {
-        WebElement d = driver.findElement(By.name("StopPush"));
+    private static void clickStartPushBtn (AppiumDriver<MobileElement> driver) {
+        MobileElement d = driver.findElement(By.name("StartPush"));
         d.click();
     }
 
-    public static void clickMuteSpeakerBtn (AppiumDriver<WebElement> driver) {
-        WebElement d = driver.findElement(By.name("MuteSpeaker"));
+    private static void clickStopPreviewBtn (AppiumDriver<MobileElement> driver) {
+        MobileElement d = driver.findElement(By.name("StopPreview"));
         d.click();
     }
-    public static void clickStartRecordBtn (AppiumDriver<WebElement> driver) {
-        WebElement d = driver.findElement(By.name("StartRecord"));
+    private static void clickStopPushBtn (AppiumDriver<MobileElement> driver) {
+        MobileElement d = driver.findElement(By.name("StopPush"));
+        d.click();
+    }
+
+    public static void clickMuteSpeakerBtn (AppiumDriver<MobileElement> driver) {
+        MobileElement d = driver.findElement(By.name("MuteSpeaker"));
+        d.click();
+    }
+    public static void clickStartRecordBtn (AppiumDriver<MobileElement> driver) {
+        MobileElement d = driver.findElement(By.name("StartRecord"));
         d.click();
     }
 
@@ -163,17 +168,17 @@ public class MainPage {
 
 
 
-    public static void toSettingsController (AppiumDriver<WebElement> driver) {
+    public static void toSettingsController (AppiumDriver<MobileElement> driver) {
         /*
         * 1. 双击跳转
         * */
 
-//        WebElement startPreview = driver.findElement(By.name("StartPreview"));
-//        WebElement MuteSpeaker = driver.findElement(By.name("MuteSpeaker"));
-//        WebElement StartPush = driver.findElement(By.name("StartPush"));
-//        WebElement StartRecord = driver.findElement(By.name("StartRecord"));
+//        MobileElement startPreview = driver.findElement(By.name("StartPreview"));
+//        MobileElement MuteSpeaker = driver.findElement(By.name("MuteSpeaker"));
+//        MobileElement StartPush = driver.findElement(By.name("StartPush"));
+//        MobileElement StartRecord = driver.findElement(By.name("StartRecord"));
 //
-        WebElement bottomView = Find.otherView(driver);
+        MobileElement bottomView = Find.otherView(driver);
         /*1 1在左上角，在下面的Other中的任意位置双击都可以*/
         Handle.iosDoubleClick(driver, bottomView, 1, 1);
 
@@ -185,10 +190,10 @@ public class MainPage {
 
 
 
-    public static void assertFpsTextField (AppiumDriver<WebElement> driver) {
-//        WebElement t = driver.findElement(By.xpath("//Application[1]//Window[1]//Other[1]//Other[1]//TextField[1]"));
+    public static void assertFpsTextField (AppiumDriver<MobileElement> driver) {
+//        MobileElement t = driver.findElement(By.xpath("//Application[1]//Window[1]//Other[1]//Other[1]//TextField[1]"));
 
-        WebElement t = Find.fpsTextField(driver);
+        MobileElement t = Find.fpsTextField(driver);
 
         Random r = new Random();
         /* 10 ~ 30*/
@@ -198,10 +203,10 @@ public class MainPage {
 
     }
 
-    public static void assertGopTextField (AppiumDriver<WebElement> driver) {
+    public static void assertGopTextField (AppiumDriver<MobileElement> driver) {
         /*List的下标从0开始*/
 
-        WebElement t = Find.gopTextField(driver);
+        MobileElement t = Find.gopTextField(driver);
 
         Random r = new Random();
         int n = r.nextInt(7)+ 1;
@@ -210,9 +215,9 @@ public class MainPage {
         Handle.assertTestFieldSendKeys(t, String.valueOf(n));
     }
 
-    public static void assertRateTextField (AppiumDriver<WebElement> driver) {
+    public static void assertRateTextField (AppiumDriver<MobileElement> driver) {
 
-        WebElement t = Find.rateTextField(driver);
+        MobileElement t = Find.rateTextField(driver);
 
         Random r = new Random();
         int n = r.nextInt(488)+ 512;
@@ -220,9 +225,9 @@ public class MainPage {
         Handle.assertTestFieldSendKeys(t ,String.valueOf(n) + "000");
     }
 
-    public static void assertRtmpTextField (AppiumDriver<WebElement> driver) {
+    public static void assertRtmpTextField (AppiumDriver<MobileElement> driver) {
 
-        WebElement t = Find.rtmpTextField(driver);
+        MobileElement t = Find.rtmpTextField(driver);
 
         Random r = new Random();
         int n = r.nextInt(100)+ 1;
@@ -232,7 +237,7 @@ public class MainPage {
 
         Handle.assertTestFieldSendKeys(t, rtmpUrlString);
 
-        WebElement rtmpLabel = driver.findElement(By.name(rtmpUrlString));
+        MobileElement rtmpLabel = driver.findElement(By.name(rtmpUrlString));
         rtmpLabel.isDisplayed();
 
     }
@@ -241,9 +246,9 @@ public class MainPage {
 
 
     /*切换到最顶部*/
-    public static void changeTopDefinition (AppiumDriver<WebElement> driver) {
+    public static void changeTopDefinition (AppiumDriver<MobileElement> driver) {
         MainPage.toSettingsController(driver);
-        WebElement pickerWheel = Find.pickerWheel(driver);
+        MobileElement pickerWheel = Find.pickerWheel(driver);
         int settingX = pickerWheel.getRect().getWidth() / 2;
         int settingY = pickerWheel.getSize().getHeight() / 2;
 //        TouchAction swipe = new TouchAction(driver);
@@ -261,14 +266,14 @@ public class MainPage {
     }
 
     /*切换分辨率*/
-    public static void changeDefinition (AppiumDriver<WebElement> driver, boolean up) {
+    public static void changeDefinition (AppiumDriver<MobileElement> driver, boolean up) {
         /*
         切换清晰度, 默认480P
         */
 
         /*先跳转界面*/
         MainPage.toSettingsController(driver);
-        WebElement p = Find.pickerWheel(driver);
+        MobileElement p = Find.pickerWheel(driver);
 
         /*思路：获取到picker的中心位置，在其Y轴上偏移上下20点，进行Tap*/
         int settingX = p.getRect().getWidth() / 2;
@@ -293,7 +298,7 @@ public class MainPage {
         Handle.defaultSleep();
     }
 
-    public static void startPushLoop (AppiumDriver<WebElement> driver, String width, String height) {
+    public static void startPushLoop (AppiumDriver<MobileElement> driver, String width, String height) {
         /*点击应用按钮*/
         MainPage.clickApplyBtn(driver);
 

@@ -1,5 +1,7 @@
 package com.magaofei.tal.config;
 
+import org.apache.commons.lang3.ObjectUtils;
+import org.junit.Test;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import com.magaofei.tal.config.IniFileIO;
 
@@ -11,6 +13,20 @@ import java.util.Properties;
  * 初始化参数
  */
 public class CapabilitiesSetup {
+
+    /*config文件的目录*/
+    private static String configClassPath = "src/test/java/com/magaofei/tal/config.properties";
+
+    /** iOS */
+    private static String deviceName;
+    private static String app;
+    private static String udid;
+    private static String wdaLocalPort;
+    private static String xcodeOrgId;
+    private static String xcodeSigningId;
+    private static String automationName;
+    private static String bundleId;
+    private static String platformVersion;
 
     /**直接代码书写返回参数*/
     public static DesiredCapabilities parameter () {
@@ -34,33 +50,79 @@ public class CapabilitiesSetup {
         return capabilities;
     }
 
-    private String deviceName;
-    private String app;
-    private String udid;
 
 
-    public void setDeviceName(String deviceName) {
-        this.deviceName = deviceName;
+
+    public static String getWdaLocalPort() {
+        return wdaLocalPort;
     }
 
-    public String getDeviceName() {
-        return this.deviceName;
+    public static void setWdaLocalPort(String wdaLocalPort) {
+        CapabilitiesSetup.wdaLocalPort = wdaLocalPort;
     }
 
-    public String getApp() {
-        return app;
+    public static void setUdid(String udid) {
+        CapabilitiesSetup.udid = udid;
     }
 
-    public void setApp(String app) {
-        this.app = app;
-    }
-
-    public String getUdid() {
+    public static String getUdid() {
         return udid;
     }
 
-    public void setUdid(String udid) {
-        this.udid = udid;
+    public static void setApp(String app) {
+        CapabilitiesSetup.app = app;
+    }
+
+    public static String getApp() {
+        return app;
+    }
+
+    public static String getAutomationName() {
+        return automationName;
+    }
+
+    public static String getBundleId() {
+        return bundleId;
+    }
+
+    public static String getDeviceName() {
+        return deviceName;
+    }
+
+    public static String getXcodeOrgId() {
+        return xcodeOrgId;
+    }
+
+    public static String getPlatformVersion() {
+        return platformVersion;
+    }
+
+    public static String getXcodeSigningId() {
+        return xcodeSigningId;
+    }
+
+    public static void setAutomationName(String automationName) {
+        CapabilitiesSetup.automationName = automationName;
+    }
+
+    public static void setBundleId(String bundleId) {
+        CapabilitiesSetup.bundleId = bundleId;
+    }
+
+    public static void setDeviceName(String deviceName) {
+        CapabilitiesSetup.deviceName = deviceName;
+    }
+
+    public static void setPlatformVersion(String platformVersion) {
+        CapabilitiesSetup.platformVersion = platformVersion;
+    }
+
+    public static void setXcodeOrgId(String xcodeOrgId) {
+        CapabilitiesSetup.xcodeOrgId = xcodeOrgId;
+    }
+
+    public static void setXcodeSigningId(String xcodeSigningId) {
+        CapabilitiesSetup.xcodeSigningId = xcodeSigningId;
     }
 
 
@@ -75,25 +137,65 @@ public class CapabilitiesSetup {
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
         try {
-            prop.load(new FileInputStream("src/test/java/com/magaofei/tal/config.properties"));
+            prop.load(new FileInputStream(configClassPath));
 
 
-//            System.out.println(classpathRoot);
-//            System.out.println(prop.getProperty("udid"));
-//            System.out.println(prop.getProperty("platformVersion"));
-//            System.out.println(prop.getProperty("deviceName"));
-//            System.out.println(prop.getProperty("bundleId"));
-//            System.out.println(prop.getProperty("automationName"));
+            // 1. 取数据
+            setDeviceName(prop.getProperty("deviceName"));
+            setBundleId(prop.getProperty("bundleId"));
+            setAutomationName(prop.getProperty("automationName"));
+            setWdaLocalPort(prop.getProperty("xcodeOrgId"));
+            setWdaLocalPort(prop.getProperty("xcodeSigningId"));
+            setWdaLocalPort(prop.getProperty("wdaLocalPort"));
+            setUdid(prop.getProperty("udid"));
+            setPlatformVersion(prop.getProperty("platformVersion"));
 
 
-            capabilities.setCapability("udid", prop.getProperty("udid"));
-            capabilities.setCapability("platformVersion", prop.getProperty("platformVersion"));
-            capabilities.setCapability("deviceName", prop.getProperty("deviceName"));
-            capabilities.setCapability("bundleId", prop.getProperty("bundleId"));
-            capabilities.setCapability("automationName", prop.getProperty("automationName"));
-            capabilities.setCapability("wdaLocalPort", prop.getProperty("wdaLocalPort"));
-            capabilities.setCapability("xcodeOrgId", prop.getProperty("xcodeOrgId"));
-            capabilities.setCapability("xcodeSigningId", prop.getProperty("xcodeSigningId"));
+
+            // 2.做数据容错处理
+
+            if (automationName != null && !automationName.equals("")) {
+                capabilities.setCapability(String.valueOf(automationName), automationName);
+            }
+
+            if (bundleId != null && !bundleId.equals("")) {
+                capabilities.setCapability(String.valueOf(bundleId), bundleId);
+            }
+
+            if (udid!= null && !udid.equals("")) {
+                capabilities.setCapability(String.valueOf(udid), udid);
+            }
+
+            if (deviceName!= null && !deviceName.equals("")) {
+                capabilities.setCapability(String.valueOf(deviceName), deviceName);
+            }
+
+            if (xcodeOrgId != null && !xcodeOrgId.equals("")) {
+                capabilities.setCapability(String.valueOf(xcodeOrgId), xcodeSigningId);
+            }
+
+            if (xcodeSigningId != null && !xcodeSigningId.equals("")) {
+                capabilities.setCapability(String.valueOf(xcodeSigningId), xcodeSigningId);
+            }
+
+            if (platformVersion != null && !platformVersion.equals("")) {
+                capabilities.setCapability(String.valueOf(platformVersion), platformVersion);
+            }
+
+
+
+//            capabilities.setCapability("xcodeSigningId", prop.getProperty("xcodeSigningId"));
+
+
+            // Android
+//            capabilities.setCapability("appActivity", prop.getProperty("appActivity"));
+//            capabilities.setCapability("appPackage", prop.getProperty("appPackage"));
+//            capabilities.setCapability("appWaitActivity", prop.getProperty("appWaitActivity"));
+//            capabilities.setCapability("appWaitPackage", prop.getProperty("appWaitPackage"));
+//            capabilities.setCapability("appWaitDuration", prop.getProperty("appWaitDuration"));
+//            capabilities.setCapability("deviceReadyTimeout", prop.getProperty("deviceReadyTimeout"));
+//            capabilities.setCapability("adbPort", prop.getProperty("adbPort"));
+
 
 
 //            return capabilities;
@@ -109,4 +211,12 @@ public class CapabilitiesSetup {
 
 
     }
+
+
+    @Test
+    public void test () {
+        System.out.println(String.valueOf(xcodeOrgId));
+    }
+
+
 }

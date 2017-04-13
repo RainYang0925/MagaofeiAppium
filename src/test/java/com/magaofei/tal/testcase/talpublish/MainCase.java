@@ -7,6 +7,7 @@ import com.magaofei.tal.config.driverSetup;
 /*双击*/
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
 import jdk.nashorn.internal.runtime.regexp.joni.Config;
 import org.junit.After;
@@ -27,7 +28,7 @@ import java.net.URL;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MainCase {
 
-    private AppiumDriver<WebElement> driver;
+    private AppiumDriver<MobileElement> driver;
 
     @Before
     public void setUp() throws Exception {
@@ -50,8 +51,8 @@ public class MainCase {
 
 
 
-        driver = new IOSDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), CapabilitiesSetup.readFile());
-
+        driver = new IOSDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), CapabilitiesSetup.readFile());
+        
 //        MainPage.toSettingsController(driver);
 
     }
