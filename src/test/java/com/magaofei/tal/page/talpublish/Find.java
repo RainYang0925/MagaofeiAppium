@@ -1,10 +1,14 @@
 package com.magaofei.tal.page.talpublish;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import org.openqa.selenium.By;
 
 import java.util.List;
 import io.appium.java_client.MobileElement;
+
+import io.appium.java_client.MobileBy;
+
 /**
  * Created by MAMIAN on 2017/4/10.
  */
@@ -14,12 +18,12 @@ public class Find {
 
 
     protected static MobileElement captureWidth (AppiumDriver<MobileElement> driver) {
-        return driver.findElement(By.name("captureWidth"));
+        return driver.findElementByAccessibilityId("captureWidth");
     }
 
 
     protected static MobileElement captureHeight (AppiumDriver<MobileElement> driver) {
-        return driver.findElement(By.name("captureHeight"));
+        return driver.findElementByAccessibilityId("captureHeight");
     }
 
     protected static MobileElement captureWidthCell (AppiumDriver<MobileElement> driver) {
@@ -44,12 +48,14 @@ public class Find {
 
 
     protected static MobileElement frontTab (AppiumDriver<MobileElement> driver) {
-        return driver.findElement(By.name("Front"));
+//        return driver.findElementByAccessibilityId("Front"));
+        // 推荐写法
+        return driver.findElementByAccessibilityId("Front");
     }
 
 
     protected static MobileElement backTab (AppiumDriver<MobileElement> driver) {
-        return driver.findElement(By.name("Back"));
+        return driver.findElementByAccessibilityId("Back");
     }
 
     protected static MobileElement beautSwitch (AppiumDriver<MobileElement> driver) {
@@ -89,14 +95,16 @@ public class Find {
     }
 
     protected static MobileElement addBtn (AppiumDriver<MobileElement> driver) {
-        return driver.findElement(By.name("Add"));
+        return driver.findElementByAccessibilityId("Add");
     }
 
     protected static MobileElement cancelBtn (AppiumDriver<MobileElement> driver) {
-        return driver.findElement(By.name("Cancel"));
+        return driver.findElementByAccessibilityId("Cancel");
     }
 
-    protected static MobileElement applyBtn (AppiumDriver<MobileElement> driver) {
-        return driver.findElement(By.name("Apply"));
+    protected static By applyBtn (AppiumDriver<MobileElement> driver) {
+        By e = MobileBy.AccessibilityId("Apply");
+        return e;
+
     }
 }
