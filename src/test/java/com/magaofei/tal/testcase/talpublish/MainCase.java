@@ -1,25 +1,20 @@
 package com.magaofei.tal.testcase.talpublish;
 
-import com.magaofei.tal.page.talpublish.MainPage;
-import com.magaofei.tal.common.Handle;
+import com.magaofei.tal.Excel.ExcelUtil;
 import com.magaofei.tal.config.CapabilitiesSetup;
-import com.magaofei.tal.config.driverSetup;
-/*双击*/
-
+import com.magaofei.tal.page.talpublish.MainPage;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
-import jdk.nashorn.internal.runtime.regexp.joni.Config;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import org.openqa.selenium.*;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import sun.applet.Main;
 
 import java.net.URL;
+
+/*双击*/
 
 /**
  * Created by MAMIAN on 2017/3/31.
@@ -61,6 +56,11 @@ public class MainCase {
     public void tearDown() throws Exception {
         /*即使退出也会保存*/
         driver.quit();
+    }
+
+//    @Test
+    public void testReadExcel () {
+        ExcelUtil.testReadExcel(driver);
     }
 
 

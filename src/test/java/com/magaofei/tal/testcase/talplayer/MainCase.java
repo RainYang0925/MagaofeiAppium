@@ -2,18 +2,13 @@ package com.magaofei.tal.testcase.talplayer;
 
 import com.magaofei.tal.common.Handle;
 import com.magaofei.tal.page.talplayer.MainPage;
-
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
-import junit.framework.TestSuite;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
-
 
 import java.net.URL;
 
@@ -23,7 +18,7 @@ import java.net.URL;
 public class MainCase {
 
     // 这里定义为静态方法，否则不能使静态变量
-    private static AppiumDriver<WebElement> driver;
+    private static AppiumDriver<MobileElement> driver;
 
     private static String playUrl = "rtmp://live.speiyou.com/live_online/d2";
 
@@ -45,7 +40,7 @@ public class MainCase {
 
 
 
-        driver = new IOSDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+        driver = new IOSDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 //        TestSuite suite = new TestSuite();
 
 

@@ -1,13 +1,10 @@
 package com.magaofei.tal.page.talpublish;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileBy;
+import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
 
 import java.util.List;
-import io.appium.java_client.MobileElement;
-
-import io.appium.java_client.MobileBy;
 
 /**
  * Created by MAMIAN on 2017/4/10.
@@ -85,7 +82,6 @@ public class Find {
 
     protected static MobileElement otherView (AppiumDriver<MobileElement> driver) {
         return driver.findElement(By.className("Other"));
-
     }
 
     protected static MobileElement pickerWheel (AppiumDriver<MobileElement> driver) {
@@ -102,9 +98,10 @@ public class Find {
         return driver.findElementByAccessibilityId("Cancel");
     }
 
-    protected static By applyBtn (AppiumDriver<MobileElement> driver) {
-        By e = MobileBy.AccessibilityId("Apply");
-        return e;
+    protected static MobileElement applyBtn (AppiumDriver<MobileElement> driver) {
+//        By e = MobileBy.AccessibilityId("Apply");
+//        return e;
+        return driver.findElementByAccessibilityId("Apply");
 
     }
 }
