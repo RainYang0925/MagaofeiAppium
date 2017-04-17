@@ -1,16 +1,21 @@
 package com.magaofei.tal.Excel;
 
+import com.magaofei.tal.config.CapabilitiesSetup;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.ios.IOSDriver;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.junit.Test;
 
 import java.io.*;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,8 +26,28 @@ import java.util.logging.Logger;
 
 public class ExcelUtil {
 
-    @Test
+    private static AppiumDriver<MobileElement> excelDriver;
+
+//    @Before
+    // 不能写static
+    public static void setUp(AppiumDriver<MobileElement> driver) throws Exception {
+//        driver = new IOSDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), CapabilitiesSetup.readFile());
+        excelDriver = driver;
+    }
+
+//    @After
+    public static void tearDown() throws Exception {
+        /*即使退出也会保存*/
+        excelDriver.quit();
+    }
+
+//    @Test
+    /*
+    * 思路:
+    * 每一次都会执行setUp 和 tearDown方法, 那每次case的开始和结束时 手动的执行
+    * */
     public static void testReadExcel (AppiumDriver<MobileElement> driver) {
+        excelDriver = driver;
         ExcelUtil re = new ExcelUtil();
 //  List<String[]> list = re.readExcel("c:/群组.xls");
         List<String[]> list = null;
@@ -33,10 +58,14 @@ public class ExcelUtil {
             e.printStackTrace();
         }
 
-
+        // case的标识
+        String k  = "0";
         if (list != null) {
             /*二维数组*/
-            for (int i = 0; i < list.size(); i++) {
+            // 跳过第一行
+
+
+            for (int i = 1; i < list.size(); i++) {
                 System.out.println("第" + (i + 1) + "行");
                 /*
                 * 列
@@ -47,18 +76,61 @@ public class ExcelUtil {
                 /*跳过第一行*/
 
 
+
+
+                // 取出行
                 String[] cellList = list.get(i);
+
                 for (int j = 0; j < cellList.length; j++) {
                     System.out.print("\t第" + (j + 1) + "列值：");
                     System.out.println(cellList[j]);
 
-                    switch (j) {
-                        case 3:
-                            // 方法
+                    // 在这里做一个判断, 如果是一次实例的 就做一次循环
+                    // 保存每次第一列的数值, 如果相等, 就继续, 如果不相等 ,就循环
 
-                            ExcelToMethod.findElementFromExcel(cellList, j, driver);
-                            break;
+                    if (k.equals(cellList[0])) {
+                        // 如果k和上一行的值相等, 说明是同一个实例
+                        // 继续执行Test
+                        testMethod(cellList, j);
+                    } else {
+                        // 如果不相等, 说明不是同一个实例
+
+                        // 并把新的用例的标识值 赋给 k
+                        k = cellList[0];
+
+                        // 开始执行tearDown
+
+                        try {
+                            driver.quit();
+//                            tearDown();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        // 开始执行setUp
+                        // 开始执行Test
+
+                        try {
+                            driver = new IOSDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), CapabilitiesSetup.readFile());
+                            excelDriver = driver;
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+
+
+
+//                        testMethod(cellList, j);
+
+
+
                     }
+
+
+
+                    //
+
                 }
 
 
@@ -66,6 +138,26 @@ public class ExcelUtil {
         }
     }
 
+
+    /**
+     * 执行方法, 从第4列开始
+     * @param cellList 行
+     * @param j index
+     * */
+    private static void testMethod (String[] cellList, int j) {
+        switch (j) {
+            case 3:
+                // 方法
+
+                ExcelToMethod.findElementFromExcel(cellList, j, excelDriver);
+//                            try {
+//                                tearDown();
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+                break;
+        }
+    }
 
     public List<String[]> readExcel (String filePath) throws Exception  {
         List<String[]> dataList = new ArrayList<String[]>();

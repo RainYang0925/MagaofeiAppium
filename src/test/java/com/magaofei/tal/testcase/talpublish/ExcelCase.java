@@ -22,6 +22,8 @@ public class ExcelCase {
     @Before
     public void setUp() throws Exception {
         driver = new IOSDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), CapabilitiesSetup.readFile());
+        // 在第一次初始化时 把driver传过去
+//        ExcelUtil.setUp(driver);
     }
 
     @After
@@ -29,6 +31,8 @@ public class ExcelCase {
         /*即使退出也会保存*/
         driver.quit();
     }
+
+
 
 //    @TestFactory
 //    Collection<DynamicTest> dynamicTestsFromCollection() {
@@ -50,10 +54,10 @@ public class ExcelCase {
 //        return suite;
 //    }
 
-    @Test
-    public void testA () {
-
-    }
+//    @Test
+//    public void testA () {
+//
+//    }
 
     @Test
     public void dynamicTestsWithInvalidReturnType() {
