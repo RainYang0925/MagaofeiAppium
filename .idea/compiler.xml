@@ -7,10 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="magaofei_appium_junit" />
+        <module name="MagaofeiAppium" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="magaofei_appium_junit" target="1.7" />
+      <module name="MagaofeiAppium" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
