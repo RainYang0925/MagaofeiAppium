@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/magaofei_appium_junit.iml" filepath="$PROJECT_DIR$/magaofei_appium_junit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MagaofeiAppium.iml" filepath="$PROJECT_DIR$/MagaofeiAppium.iml" />
     </modules>
   </component>
 </project>

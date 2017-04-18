@@ -81,7 +81,7 @@ public class MainCase {
         MainPage.assertRtmpTextField(driver);
         MainPage.clickAddBtn(driver);
 
-        MainPage.startPushLoop(driver, "720", "1280");
+        MainPage.startPushLoop(driver, "72", "1280");
 
 //        /*点击应用按钮*/
 //        MainPage.clickApplyBtn(driver);

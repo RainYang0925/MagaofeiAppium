@@ -30,9 +30,9 @@ public class ExcelUtil {
 
 //    @Before
     // 不能写static
-    public static void setUp(AppiumDriver<MobileElement> driver) throws Exception {
-//        driver = new IOSDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), CapabilitiesSetup.readFile());
-        excelDriver = driver;
+    public static void setUp() throws Exception {
+        excelDriver = new IOSDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), CapabilitiesSetup.readFile());
+//        excelDriver = driver;
     }
 
 //    @After
@@ -58,7 +58,7 @@ public class ExcelUtil {
             e.printStackTrace();
         }
 
-        // case的标识
+        // case的标识, 并赋予初始值
         String k  = "0";
         if (list != null) {
             /*二维数组*/
@@ -91,7 +91,14 @@ public class ExcelUtil {
                     if (k.equals(cellList[0])) {
                         // 如果k和上一行的值相等, 说明是同一个实例
                         // 继续执行Test
-                        testMethod(cellList, j);
+                        try {
+                            testMethod(cellList, j);
+                        } catch (Exception | AssertionError e) {
+                            // 这里捕捉多个异常, 并且要进行截图等操作
+                            /*todo 截图等, Assert的异常捕捉不了*/
+                            e.printStackTrace();
+
+                        }
                     } else {
                         // 如果不相等, 说明不是同一个实例
 
@@ -101,8 +108,8 @@ public class ExcelUtil {
                         // 开始执行tearDown
 
                         try {
-                            driver.quit();
-//                            tearDown();
+//                            driver.quit();
+                            tearDown();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -111,9 +118,9 @@ public class ExcelUtil {
                         // 开始执行Test
 
                         try {
-                            driver = new IOSDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), CapabilitiesSetup.readFile());
-                            excelDriver = driver;
-
+//                            driver = new IOSDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), CapabilitiesSetup.readFile());
+//                            excelDriver = driver;
+                            setUp();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -144,12 +151,16 @@ public class ExcelUtil {
      * @param cellList 行
      * @param j index
      * */
-    private static void testMethod (String[] cellList, int j) {
+    private static void testMethod (String[] cellList, int j) throws Exception {
         switch (j) {
             case 3:
                 // 方法
-
                 ExcelToMethod.findElementFromExcel(cellList, j, excelDriver);
+//                try {
+//                    ExcelToMethod.findElementFromExcel(cellList, j, excelDriver);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
 //                            try {
 //                                tearDown();
 //                            } catch (Exception e) {

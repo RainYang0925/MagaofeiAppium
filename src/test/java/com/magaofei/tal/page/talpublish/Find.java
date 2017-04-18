@@ -81,7 +81,8 @@ public class Find {
     }
 
     protected static MobileElement otherView (AppiumDriver<MobileElement> driver) {
-        return driver.findElement(By.className("Other"));
+//        return driver.findElement(By.className("Other"));
+        return driver.findElementByClassName("Other");
     }
 
     protected static MobileElement pickerWheel (AppiumDriver<MobileElement> driver) {

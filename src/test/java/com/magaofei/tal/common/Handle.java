@@ -1,18 +1,35 @@
 package com.magaofei.tal.common;
 
+import com.magaofei.tal.page.talpublish.Find;
+import com.magaofei.tal.page.talpublish.MainPage;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.ios.IOSTouchAction;
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Rectangle;
-import io.appium.java_client.MobileElement;
+
+import java.time.Duration;
 
 /**
  * Created by MAMIAN on 2017/3/31.
  */
 public class Handle {
+
+
+    public void stringInvokeMethod(String str, int i) throws Exception {
+        if (i == 0) {
+            // 调用没有参数的方法
+            this.getClass().getMethod(str, new Class[] {}).invoke(this, new Object[] {});
+        } else if (i == 1) {
+            // 调用有一个参数的方法，参数为String类型的s
+            this.getClass().getMethod(str, new Class[] { String.class }).invoke(this, new Object[] { "s" });
+        } else if (i == 2) {
+            // 调用有两个参数的方法 参数分别为String类型的qw和int型的1
+            this.getClass().getMethod(str, new Class[] { String.class, int.class }).invoke(this, new Object[] { "qw", 1 });
+        }
+    }
+
     public static void findElementById () {
 
     }
@@ -56,6 +73,55 @@ public class Handle {
         d.click();
     }
 
+    public static void pickerWheelChangeTopDefinition (AppiumDriver<MobileElement> driver, MobileElement pickerWheel) {
+
+
+        int settingX = pickerWheel.getRect().getWidth() / 2;
+        int settingY = pickerWheel.getSize().getHeight() / 2;
+//        TouchAction swipe = new TouchAction(driver);
+
+
+        /*先Tap 再 移动*/
+//        swipe.tap(pickerWheel, settingX, settingY);
+
+        int windowY = driver.manage().window().getSize().getHeight();
+
+        Handle.swipe(driver, pickerWheel, settingX, settingY, 0, windowY);
+//        swipe.moveTo(pickerWheel, settingX, windowY);
+//        swipe.perform();
+
+    }
+
+    /*切换分辨率*/
+    public static void pickerWheechangeDefinition (AppiumDriver<MobileElement> driver, MobileElement p, boolean up) {
+        /*
+        切换清晰度, 默认480P
+        */
+
+        /*先跳转界面*/
+
+        /*思路：获取到picker的中心位置，在其Y轴上偏移上下20点，进行Tap*/
+        int settingX = p.getRect().getWidth() / 2;
+        int settingY = p.getSize().getHeight() / 2;
+
+        /*
+        * 如果是往上走，就y-20
+        * 如果是往下走，就y+20
+        *
+        * */
+
+        if (up) {
+            settingY -= 20;
+        } else {
+            settingY += 20;
+        }
+
+        TouchAction pickerWheelChangeValue = new TouchAction(driver);
+        pickerWheelChangeValue.tap(p, settingX, settingY);
+        pickerWheelChangeValue.perform();
+
+        Handle.defaultSleep();
+    }
 
 
 

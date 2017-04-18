@@ -5,14 +5,8 @@ package com.magaofei.tal.page.talpublish;
 import com.magaofei.tal.common.Handle;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.TouchAction;
-import org.junit.Assert;
-import com.magaofei.tal.page.talpublish.Find;
 import org.openqa.selenium.By;
 
-import io.appium.java_client.MobileElement;
-
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -177,7 +171,7 @@ public class MainPage {
 //        MobileElement MuteSpeaker = driver.findElement(By.name("MuteSpeaker"));
 //        MobileElement StartPush = driver.findElement(By.name("StartPush"));
 //        MobileElement StartRecord = driver.findElement(By.name("StartRecord"));
-//
+//      MobileElement o = driver.findElementByClassName("Other");
         MobileElement bottomView = Find.otherView(driver);
         /*1 1在左上角，在下面的Other中的任意位置双击都可以*/
         Handle.iosDoubleClick(driver, bottomView, 1, 1);
@@ -248,20 +242,12 @@ public class MainPage {
     /*切换到最顶部*/
     public static void changeTopDefinition (AppiumDriver<MobileElement> driver) {
         MainPage.toSettingsController(driver);
+
+
         MobileElement pickerWheel = Find.pickerWheel(driver);
-        int settingX = pickerWheel.getRect().getWidth() / 2;
-        int settingY = pickerWheel.getSize().getHeight() / 2;
-//        TouchAction swipe = new TouchAction(driver);
 
+        Handle.pickerWheelChangeTopDefinition(driver, pickerWheel);
 
-        /*先Tap 再 移动*/
-//        swipe.tap(pickerWheel, settingX, settingY);
-
-        int windowY = driver.manage().window().getSize().getHeight();
-
-        Handle.swipe(driver, pickerWheel, settingX, settingY, 0, windowY);
-//        swipe.moveTo(pickerWheel, settingX, windowY);
-//        swipe.perform();
 
     }
 
@@ -273,29 +259,8 @@ public class MainPage {
 
         /*先跳转界面*/
         MainPage.toSettingsController(driver);
-        MobileElement p = Find.pickerWheel(driver);
-
-        /*思路：获取到picker的中心位置，在其Y轴上偏移上下20点，进行Tap*/
-        int settingX = p.getRect().getWidth() / 2;
-        int settingY = p.getSize().getHeight() / 2;
-
-        /*
-        * 如果是往上走，就y-20
-        * 如果是往下走，就y+20
-        *
-        * */
-
-        if (up) {
-            settingY -= 20;
-        } else {
-            settingY += 20;
-        }
-
-        TouchAction pickerWheelChangeValue = new TouchAction(driver);
-        pickerWheelChangeValue.tap(p, settingX, settingY);
-        pickerWheelChangeValue.perform();
-
-        Handle.defaultSleep();
+        MobileElement p =  Find.pickerWheel(driver);
+        Handle.pickerWheechangeDefinition(driver, p, false);
     }
 
     public static void startPushLoop (AppiumDriver<MobileElement> driver, String width, String height) {
