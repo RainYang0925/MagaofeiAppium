@@ -1,9 +1,7 @@
 package com.magaofei.tal.config;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.junit.Test;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import com.magaofei.tal.config.IniFileIO;
 
 import java.io.FileInputStream;
 import java.util.Properties;
@@ -15,7 +13,7 @@ import java.util.Properties;
 public class CapabilitiesSetup {
 
     /*config文件的目录*/
-    private static String configClassPath = "src/test/java/com/magaofei/tal/config.properties";
+    public static String configClassPath = "src/test/java/com/magaofei/tal/config.properties";
 
     /** iOS */
     private static String deviceName;
@@ -27,6 +25,7 @@ public class CapabilitiesSetup {
     private static String automationName;
     private static String bundleId;
     private static String platformVersion;
+    private static String clearSystemFiles;
 
     /**直接代码书写返回参数*/
     public static DesiredCapabilities parameter () {
@@ -137,7 +136,7 @@ public class CapabilitiesSetup {
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
         try {
-            prop.load(new FileInputStream(configClassPath));
+            prop.load(new FileInputStream("src/test/java/com/magaofei/tal/config.properties"));
 
 
             // 1. 取数据
@@ -152,34 +151,39 @@ public class CapabilitiesSetup {
 
 
 
+
+
+
             // 2.做数据容错处理
 
+
+            // 这里不能写作String.ValueOf
             if (automationName != null && !automationName.equals("")) {
-                capabilities.setCapability(String.valueOf(automationName), automationName);
+                capabilities.setCapability("automationName", automationName);
             }
 
             if (bundleId != null && !bundleId.equals("")) {
-                capabilities.setCapability(String.valueOf(bundleId), bundleId);
+                capabilities.setCapability("bundleId", bundleId);
             }
 
             if (udid!= null && !udid.equals("")) {
-                capabilities.setCapability(String.valueOf(udid), udid);
+                capabilities.setCapability("udid", udid);
             }
 
             if (deviceName!= null && !deviceName.equals("")) {
-                capabilities.setCapability(String.valueOf(deviceName), deviceName);
+                capabilities.setCapability("deviceName", deviceName);
             }
 
             if (xcodeOrgId != null && !xcodeOrgId.equals("")) {
-                capabilities.setCapability(String.valueOf(xcodeOrgId), xcodeSigningId);
+                capabilities.setCapability("xcodeOrgId", xcodeOrgId);
             }
 
             if (xcodeSigningId != null && !xcodeSigningId.equals("")) {
-                capabilities.setCapability(String.valueOf(xcodeSigningId), xcodeSigningId);
+                capabilities.setCapability("xcodeSigningId", xcodeSigningId);
             }
 
             if (platformVersion != null && !platformVersion.equals("")) {
-                capabilities.setCapability(String.valueOf(platformVersion), platformVersion);
+                capabilities.setCapability("platformVersion", platformVersion);
             }
 
 

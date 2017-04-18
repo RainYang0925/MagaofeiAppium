@@ -2,7 +2,6 @@ package com.magaofei.tal.page.talplayer;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import org.openqa.selenium.By;
 
 /**
  * Created by MAMIAN on 2017/4/13.
@@ -22,7 +21,8 @@ public class Find {
     }
 
     public static MobileElement urlTextField (AppiumDriver<MobileElement> driver) {
-        return driver.findElement(By.className("TextField"));
+//        return driver.findElement(By.className("TextField"));
+        return driver.findElementByClassName("TextField");
     }
 
 }

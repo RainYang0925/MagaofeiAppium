@@ -2,6 +2,7 @@ package com.magaofei.tal.page.talplayer;
 
 import com.magaofei.tal.common.Handle;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -12,27 +13,28 @@ import org.openqa.selenium.WebElement;
 public class MainPage {
 
     /*点击Play按钮*/
-    public static void clickPlayBtn(AppiumDriver<WebElement> driver) {
-        WebElement playBtn = driver.findElement(By.name("Play"));
-        Handle.click(playBtn);
+    public static void clickPlayBtn(AppiumDriver<MobileElement> driver) {
+        Find.playBtn(driver).click();
+//        Handle.click(playBtn);
         Handle.customSleep(3000);
     }
 
     /*点击Stop按钮*/
-    public static void clickStopBtn(AppiumDriver<WebElement> driver) {
-        WebElement stopBtn = driver.findElement(By.name("Stop"));
-        Handle.click(stopBtn);
+    public static void clickStopBtn(AppiumDriver<MobileElement> driver) {
+        Find.stopBtn(driver).click();
+//        Handle.click(stopBtn);
         Handle.customSleep(3000);
     }
 
     /*点击Mute按钮*/
-    public static void clickMuteBtn(AppiumDriver<WebElement> driver) {
-        WebElement muteBtn = driver.findElement(By.name("Mute"));
-        Handle.click(muteBtn);
+    public static void clickMuteBtn(AppiumDriver<MobileElement> driver) {
+        Find.muteBtn(driver);
+//        WebElement muteBtn = driver.findElement(By.name("Mute"));
+//        Handle.click(muteBtn);
         Handle.customSleep(3000);
     }
 
-    public static void assertUrlField(AppiumDriver<WebElement> driver, String playUrl) {
+    public static void assertUrlField(AppiumDriver<MobileElement> driver, String playUrl) {
         WebElement urlField = driver.findElement(By.className("UIATextField"));
         if (!urlField.getText().equals(playUrl)) {
 
