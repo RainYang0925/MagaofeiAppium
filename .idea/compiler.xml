@@ -6,12 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="magaofei_appium_junit" />
         <module name="MagaofeiAppium" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="MagaofeiAppium" target="1.7" />
+    <bytecodeTargetLevel target="1.7">
+      <module name="MagaofeiAppium" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -93,7 +93,7 @@ public class Handle {
     }
 
     /*切换分辨率*/
-    public static void pickerWheechangeDefinition (AppiumDriver<MobileElement> driver, MobileElement p, boolean up) {
+    public static void pickerWheelchangeDefinition (AppiumDriver<MobileElement> driver, MobileElement p, boolean up) {
         /*
         切换清晰度, 默认480P
         */
@@ -177,6 +177,10 @@ public class Handle {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public void testPrint () {
+        System.out.println("suibiandayixie");
     }
 
     // wait不能被写在static方法中

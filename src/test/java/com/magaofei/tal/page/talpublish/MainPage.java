@@ -260,7 +260,7 @@ public class MainPage {
         /*先跳转界面*/
         MainPage.toSettingsController(driver);
         MobileElement p =  Find.pickerWheel(driver);
-        Handle.pickerWheechangeDefinition(driver, p, false);
+        Handle.pickerWheelchangeDefinition(driver, p, false);
     }
 
     public static void startPushLoop (AppiumDriver<MobileElement> driver, String width, String height) {
