@@ -28,27 +28,24 @@ public class MainCase {
     @Before
     public void setUp() throws Exception {
 
-
-//        DesiredCapabilities capabilities = new DesiredCapabilities();
-//        capabilities.setCapability("platformVersion", "10.3");
-//        capabilities.setCapability("deviceName", "MAMIANsiPhone");
-////        capabilities.setCapability("app", app.getAbsolutePath());
-//        capabilities.setCapability("automationName","XCUITest");
-//        capabilities.setCapability("bundleId","com.haoweilai.TALPublisher");
-//        capabilities.setCapability("udid","b43c63aac03fb48c3b40fd3cf886ad30bef9f73f");
-//        // b43c63aac03fb48c3b40fd3cf886ad30bef9f73f   mengdeiPhone
-//        // 4fde6542011bd1a001a41edac73f0e492af603b4
-//
-//        capabilities.setCapability("wdaLocalPort", "8002");
-//        capabilities.setCapability("noReset", true);
-//        capabilities.setCapability("xcodeOrgId","N5G28WF2Y2");
-//        capabilities.setCapability("xcodeSigningId","iPhone Developer");
-
-
+        //        DesiredCapabilities capabilities = new DesiredCapabilities();
+        //        capabilities.setCapability("platformVersion", "10.3");
+        //        capabilities.setCapability("deviceName", "MAMIANsiPhone");
+        ////        capabilities.setCapability("app", app.getAbsolutePath());
+        //        capabilities.setCapability("automationName","XCUITest");
+        //        capabilities.setCapability("bundleId","com.haoweilai.TALPublisher");
+        //        capabilities.setCapability("udid","b43c63aac03fb48c3b40fd3cf886ad30bef9f73f");
+        //        // b43c63aac03fb48c3b40fd3cf886ad30bef9f73f   mengdeiPhone
+        //        // 4fde6542011bd1a001a41edac73f0e492af603b4
+        //
+        //        capabilities.setCapability("wdaLocalPort", "8002");
+        //        capabilities.setCapability("noReset", true);
+        //        capabilities.setCapability("xcodeOrgId","N5G28WF2Y2");
+        //        capabilities.setCapability("xcodeSigningId","iPhone Developer");
 
         driver = new IOSDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), CapabilitiesSetup.readFile());
-        
-//        MainPage.toSettingsController(driver);
+
+        //        MainPage.toSettingsController(driver);
 
     }
 
@@ -58,21 +55,19 @@ public class MainCase {
         driver.quit();
     }
 
-//    @Test
-    public void testReadExcel () {
+    //    @Test
+    public void testReadExcel() {
         ExcelUtil.testReadExcel(driver);
     }
 
-
-
     @Test
-    public void test001Default () {
+    public void test001Default() {
 
         /*校验初始值*/
         MainPage.assertDefaultValue(driver);
 
         /*切换到指定目标的分辨率*/
-//        MainPage.changeTopDefinition(driver);
+        //        MainPage.changeTopDefinition(driver);
 
         /*校验输入*/
         MainPage.assertFpsTextField(driver);
@@ -83,89 +78,87 @@ public class MainCase {
 
         MainPage.startPushLoop(driver, "72", "1280");
 
-//        /*点击应用按钮*/
-//        MainPage.clickApplyBtn(driver);
-//
-//        /*开始*/
-//        MainPage.clickStartPreviewBtn(driver);
-//        MainPage.clickStartPushBtn(driver);
-//
-//        Handle.sleep(10000);
-//        /*关闭*/
-//        MainPage.clickStopPreviewBtn(driver);
-//        MainPage.clickStopPushBtn(driver);
-
+        //        /*点击应用按钮*/
+        //        MainPage.clickApplyBtn(driver);
+        //
+        //        /*开始*/
+        //        MainPage.clickStartPreviewBtn(driver);
+        //        MainPage.clickStartPushBtn(driver);
+        //
+        //        Handle.sleep(10000);
+        //        /*关闭*/
+        //        MainPage.clickStopPreviewBtn(driver);
+        //        MainPage.clickStopPushBtn(driver);
 
     }
 
     @Test
-    public void test002480P () {
+    public void test002480P() {
         MainPage.changeDefinition(driver, false);
         MainPage.startPushLoop(driver, "480", "640");
     }
 
     @Test
-    public void test003Wide360P () {
+    public void test003Wide360P() {
         MainPage.changeDefinition(driver, false);
         MainPage.startPushLoop(driver, "360", "640");
     }
 
     @Test
-    public void test004360P () {
+    public void test004360P() {
         MainPage.changeDefinition(driver, false);
         MainPage.startPushLoop(driver, "360", "480");
     }
 
     @Test
-    public void test005288P () {
+    public void test005288P() {
         MainPage.changeDefinition(driver, false);
         MainPage.startPushLoop(driver, "288", "352");
     }
 
     @Test
-    public void test006180P () {
+    public void test006180P() {
         MainPage.changeDefinition(driver, false);
         MainPage.startPushLoop(driver, "180", "320");
     }
 
     @Test
-    public void test007720x720 () {
+    public void test007720x720() {
         MainPage.changeDefinition(driver, false);
         MainPage.startPushLoop(driver, "720", "720");
     }
 
     @Test
-    public void test008480x480 () {
+    public void test008480x480() {
         MainPage.changeDefinition(driver, false);
         MainPage.startPushLoop(driver, "480", "480");
     }
 
     @Test
-    public void test009360x360 () {
+    public void test009360x360() {
         MainPage.changeDefinition(driver, false);
         MainPage.startPushLoop(driver, "360", "360");
     }
 
     @Test
-    public void test010288x288 () {
+    public void test010288x288() {
         MainPage.changeDefinition(driver, false);
         MainPage.startPushLoop(driver, "288", "288");
     }
 
     @Test
-    public void test011180x180 () {
+    public void test011180x180() {
         MainPage.changeDefinition(driver, false);
         MainPage.startPushLoop(driver, "180", "180");
     }
 
     /*测试美颜*/
-    public  @Test void test012BeautSwitch720P () {
+    public @Test void test012BeautSwitch720P() {
 
         /*720P*/
         MainPage.changeTopDefinition(driver);
         /*打开*/
         MainPage.clickBeautySwitch(driver, true);
-
 
         MainPage.startPushLoop(driver, "720", "1280");
 
@@ -178,20 +171,15 @@ public class MainCase {
     }
 
     /*测试后置摄像头720P*/
-    public  @Test void test013Back720P () {
+    public @Test void test013Back720P() {
         /*720P*/
         MainPage.changeTopDefinition(driver);
-
 
         MainPage.clickBackTab(driver);
 
         MainPage.startPushLoop(driver, "720", "1280");
 
-
     }
-
-
-
 
     /*
     * 10~20
@@ -199,8 +187,5 @@ public class MainCase {
     *
     *
     * */
-
-
-
 
 }
