@@ -1,15 +1,11 @@
 package com.magaofei.tal.common;
 
-import com.magaofei.tal.page.talpublish.Find;
-import com.magaofei.tal.page.talpublish.MainPage;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.ios.IOSTouchAction;
 import org.junit.Assert;
 import org.openqa.selenium.By;
-
-import java.time.Duration;
 
 /**
  * Created by MAMIAN on 2017/3/31.
@@ -43,7 +39,7 @@ public class Handle {
     * */
     public static void assertTestFieldSendKeys(MobileElement d, String s) {
 
-        d.click();
+//        d.click();
         d.clear();
         d.sendKeys(s);
 //        sleep(500);
